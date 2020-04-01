@@ -1,1 +1,59 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace StacksAndQueues
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] elements = Console.ReadLine()
+                 .Split()
+                 .Select(int.Parse)
+                 .ToArray();
+
+            int push = elements[0];
+            int pop = elements[1];
+            int number = elements[2];
+
+            int[] numbers = Console.ReadLine()
+                .Split()
+                .Select(int.Parse)
+                .ToArray();
+
+
+            Stack<int> stack = new Stack<int>();
+
+            for (int i = 0; i < push; i++)
+            {
+                stack.Push(numbers[i]);
+            }
+
+            for (int i = 0; i < pop; i++)
+            {
+                stack.Pop();
+            }
+            //на всяка стъпка тества кода дали работи, така редуцираме възможността за грешка до минимум
+            bool contains = stack.Contains(number);
+            if (contains)
+            {
+                Console.WriteLine("true");
+            }
+            else
+            {
+                if (stack.Count == 0)
+                {
+                    Console.WriteLine(0);
+                }
+                else
+                {
+                    int min = stack.Min();
+                    Console.WriteLine(min);
+                }
+            }
+
+        }
+    }
+}
 
