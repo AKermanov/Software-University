@@ -1,0 +1,91 @@
+using System;
+using System.Linq;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] dementions = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            int rows = dementions[0];
+            int cols = dementions[1];
+            string[,] matrix = ReadStringMatrix(rows, cols);
+
+            string commandInput = Console.ReadLine();
+
+            while (commandInput != "END")
+            {
+                string[] commandArgs = commandInput.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                string command = commandArgs[0];
+                if (command != "swap" || commandArgs.Length != 5)
+                {
+                    Console.WriteLine("Invalid input!");
+                    commandInput = Console.ReadLine();
+                    continue;
+                }
+
+                int rowOne = int.Parse(commandArgs[1]);
+                int colOne = int.Parse(commandArgs[2]);
+                int rowTwo = int.Parse(commandArgs[3]);
+                int colTwo = int.Parse(commandArgs[4]);
+                bool isValidFirstCell = IsValidCell(matrix, rowOne, colOne);
+                bool isValidSecondCell = IsValidCell(matrix, rowTwo, colTwo);
+
+                if (isValidFirstCell && isValidSecondCell)
+                {
+                    string temp = matrix[rowOne, colOne];
+                    matrix[rowOne, colOne] = matrix[rowTwo, colTwo];
+                    matrix[rowTwo, colTwo] = temp;
+                    PrintStringMatrix(matrix);
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input!");
+                }
+
+                commandInput = Console.ReadLine();
+            }
+
+        }
+
+        private static bool IsValidCell(string[,] matrix, int row, int col)
+        {
+            bool IsValid = false;
+            if (row >= 0 && row < matrix.GetLength(0)
+                && col >= 0 && col < matrix.GetLength(1))
+            {
+                IsValid = true;
+            }
+            return IsValid;
+        }
+
+
+        static void PrintStringMatrix(string[,] matrix)
+        {
+            for (int row = 0; row < matrix.GetLength(0); row++)
+            {
+                for (int col = 0; col < matrix.GetLength(1); col++)
+                {
+                    Console.Write(matrix[row, col] + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        private static string[,] ReadStringMatrix(int rows, int cols)
+        {
+            string[,] matrix = new string[rows, cols];
+            for (int row = 0; row < rows; row++)
+            {
+                string[] rowValues = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                for (int col = 0; col < cols; col++)
+                {
+                    matrix[row, col] = rowValues[col];
+                }
+            }
+            return matrix;
+        }
+
+    }
+}
