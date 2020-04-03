@@ -1,1 +1,41 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ConsoleApp2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var input = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            var sum = input.Sum();
+            HashSet<string> set = new HashSet<string>();
+            HashSet<string> uniqueNumbers = new HashSet<string>();
+
+            for (int i = 0; i < sum; i++)
+            {
+                var numbersIn = Console.ReadLine();
+
+                if (!set.Contains(numbersIn))
+                {
+                    set.Add(numbersIn);
+                }
+                else
+                {
+                    uniqueNumbers.Add(numbersIn);
+                }
+            }
+
+            if (uniqueNumbers.Count == 0)
+            {
+                Console.WriteLine(0);
+            }
+            else
+            {
+                Console.WriteLine(string.Join(" ", uniqueNumbers));
+            }
+        }
+    }
+}
 
