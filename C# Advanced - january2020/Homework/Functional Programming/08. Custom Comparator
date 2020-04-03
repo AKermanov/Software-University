@@ -1,1 +1,37 @@
 
+using System;
+using System.Linq;
+
+namespace ConsoleApp2
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {//комператор приема 2 агумента и връща един агрумент
+            Func<int, int, int> comparator = new Func<int, int, int>((a, b) =>
+            {
+                if (a % 2 == 0 && b % 2 != 0)
+                {
+                    return -1;
+                }
+                else if (a % 2 != 0 && b % 2 == 0)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return a.CompareTo(b); //принципно се връща 0, но в задачата
+                                           //се иска в ascendin oreder връщаме това
+                }
+            });
+
+            Comparison<int> comparison = new Comparison<int>(comparator); //генерик клас, обвивка с която да го подадем към sort
+            var numbers = Console.ReadLine().Split().Select(int.Parse).ToArray();
+
+            Array.Sort(numbers, comparison); //този метод приема generic и работи с класа комператор
+
+            Console.WriteLine(string.Join(' ', numbers));
+
+        }
+    }
+}
