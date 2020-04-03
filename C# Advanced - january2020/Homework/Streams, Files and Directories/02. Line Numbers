@@ -1,1 +1,55 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
+namespace ConsoleApp2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var lines = File.ReadAllLines("./text.txt");
+            for (int i = 0; i < lines.Length; i++)
+            {
+                var currLine = lines[i];
+                int lettersCnt = CountOfLetters(currLine);
+                int punct = CountOfPunctuationalMarks(currLine);
+                lines[i] = $"Line {i + 1}: {currLine} ({lettersCnt})({punct})";
+                
+            }
+
+            File.WriteAllLines(@"../../../output.txt", lines);
+        }
+        static int CountOfLetters(string line)
+        {
+            int cnt = 0;
+            for (int i = 0; i < line.Length; i++)
+            {
+                var currSYmbol = line[i];
+                if (char.IsLetter(currSYmbol))
+                {
+                    cnt++;
+                }
+            }
+
+            return cnt;
+        }
+
+        static int CountOfPunctuationalMarks(string line)
+        {
+            int ctr = 0;
+            for (int i = 0; i < line.Length; i++)
+            {
+                if (char.IsPunctuation(line[i]))
+                {
+                    ctr++;
+                }
+            }
+            return ctr;
+        }
+
+    }
+}
+
 
