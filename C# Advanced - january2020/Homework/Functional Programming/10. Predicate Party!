@@ -1,1 +1,87 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ConsoleApp2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var guests = Console.ReadLine().Split().ToList();
+
+            string command;
+            while ((command = Console.ReadLine()) != "Party!")
+            {
+                var cmdArgs = command.Split(' ');
+
+                string cmdType = cmdArgs[0];
+                var predicateArgs = cmdArgs.Skip(1).ToArray();
+
+                Predicate<string> predicate = GetPredicata(predicateArgs);
+
+                if (cmdType == "Remove")
+                {
+                    guests.RemoveAll(predicate);
+                }
+                else if (cmdType == "Double")
+                {
+                    DoubleGuests(guests, predicate);
+                }
+            }
+
+            if (guests.Count == 0)
+            {
+                Console.WriteLine("Nobody is going to the party!");
+            }
+            else
+            {
+                Console.WriteLine($"{string.Join(", ", guests)} are going to the party!");
+            }
+        }
+
+        private static void DoubleGuests(List<string> guests, Predicate<string> predicate)
+        {
+            for (int i = 0; i < guests.Count; i++)
+            {
+                string currentGuest = guests[i];
+                if (predicate(currentGuest))
+                {
+                    guests.Insert(i + 1, currentGuest);
+                    i++;
+                }
+            }
+        }
+        static Predicate<string> GetPredicata(string[] predicateArgs)
+        {
+            string prType = predicateArgs[0];
+            string prArgs = predicateArgs[1];
+            Predicate<string> predicate = null;
+            if (prType == "StartsWith")
+            {
+                predicate = new Predicate<string>((name) =>
+                {
+                    return name.StartsWith(prArgs);
+                });
+            }
+            else if (prType == "EndsWith")
+            {
+                predicate = new Predicate<string>((name) =>
+                {
+                    return name.EndsWith(prArgs);
+                });
+            }
+            else if (prType == "Length")
+            {
+                predicate = new Predicate<string>((name) =>
+                {
+                    return name.Length == int.Parse(prArgs);
+                });
+            }
+
+            return predicate;
+        }
+    }
+
+}
 
