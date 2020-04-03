@@ -1,1 +1,29 @@
+using System.IO;
+
+namespace ConsoleApp2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            const int def_siae = 4096;
+            using FileStream reader = new FileStream(@"./copyMe.png", FileMode.Open);
+            using FileStream writer = new FileStream(@"../../../copied.png", FileMode.Create);
+            var buffer = new byte[def_siae];
+
+            while (reader.CanRead)
+            {
+                int readB = reader.Read(buffer, 0, buffer.Length);
+
+                if (readB == 0)
+                {
+                    break;
+                }
+
+                writer.Write(buffer, 0, buffer.Length);
+            }
+        }
+    }
+}
+
 
