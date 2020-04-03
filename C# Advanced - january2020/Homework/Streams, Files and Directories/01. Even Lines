@@ -1,1 +1,46 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Text;
 
+namespace ConsoleApp2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int lineCOunter = 0;
+            var symbolsToReplase = new[] { "-", ",", ".", "!", "?" };
+            var sb = new StringBuilder();
+            //търси там където трябва да търси файла, връща папки на зад
+            using (var streamReader = new StreamReader(@"../../../text.txt"))
+            {
+                while (streamReader.EndOfStream)
+                {
+                    var line = streamReader.ReadLine();
+                    if (lineCOunter % 2 == 0)
+                    {
+                        var words = line.Split();
+                        for (int i = 0; i < words.Length; i++)
+                        {
+                            var currentWord = words[i];
+                            foreach (var symbol in symbolsToReplase)
+                            {
+                                currentWord = currentWord.Replace(symbol, "@");
+                            }
+                            words[i] = currentWord;
+                        }
+
+                        var result = string.Join(" ", words.Reverse());
+                        sb.AppendLine(line);
+                        //Console.WriteLine(result);
+                    }
+
+                    lineCOunter++;
+                }
+
+            }
+            File.WriteAllText(@"C:\Users\Aleksandar\source\repos\ConsoleApp94\ConsoleApp94\result.txt", sb.ToString().TrimEnd());
+        }
+    }
+}
