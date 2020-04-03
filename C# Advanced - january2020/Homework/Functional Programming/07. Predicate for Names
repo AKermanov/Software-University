@@ -1,1 +1,39 @@
+using System;
+using System.Linq;
+
+namespace ConsoleApp2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            Func<int, string, bool> checkNameLengh = ReturnString;
+            Action<string> print = x => Console.WriteLine(x);
+            //Func<int,string,bool> namesIn = 
+
+            var name = Console.ReadLine().Split();
+            for (int i = 0; i < name.Length; i++)
+            {
+                string curr = name[i];
+                bool checkdName = checkNameLengh(n, curr);
+                if (checkdName)
+                {
+                    print(curr);
+                }
+            }
+        }
+        static bool ReturnString(int n, string str)
+        {
+            bool name = false;
+
+            if (str.Length <= n)
+            {
+                name = true;
+            }
+            return name;
+        }
+    }
+
+}
 
