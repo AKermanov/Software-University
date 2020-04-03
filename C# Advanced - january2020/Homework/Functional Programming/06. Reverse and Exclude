@@ -1,1 +1,24 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ConsoleApp2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var input = Console.ReadLine().Split().Select(int.Parse).ToList();
+            input.Reverse();
+            int operation = int.Parse(Console.ReadLine());
+            Predicate<int> isEvenPredicate = num => num % operation == 0;
+            Action<List<int>> print = x => Console.WriteLine(string.Join(" ", x));
+            input.RemoveAll(isEvenPredicate);
+            print(input);
+
+        }
+        
+    }
+
+}
 
