@@ -1,0 +1,81 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ConsoleApp4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var cocktails = new Dictionary<int, string>()
+            {  {150, "Mimosa" },
+               {250 ,"Daiquiri" },
+              {300 ,"Sunshine"},
+              {400 ,"Mojito"},
+            };
+
+            var readyCocktails = new Dictionary<string, int>()
+            {  {"Mimosa", 0 },
+               {"Daiquiri",0 },
+              {"Sunshine", 0 },
+              {"Mojito", 0 },
+            };
+            var ingredients = Console.ReadLine().Split(" ").Select(int.Parse).ToArray();
+            var freshness = Console.ReadLine().Split(" ").Select(int.Parse).ToArray();
+
+            var ingredientQue = new Queue<int>(ingredients);
+            var freshnesStack = new Stack<int>(freshness);
+
+            while (ingredientQue.Count > 0 && freshnesStack.Count > 0)
+            {
+                int currentIngredient = ingredientQue.Peek();
+                int currentFreshness = freshnesStack.Peek();
+                if (currentIngredient == 0)
+                {
+                    ingredientQue.Dequeue();
+                    continue;
+                }
+
+
+                int currentCocktail = currentFreshness * currentIngredient;
+
+                if (cocktails.ContainsKey(currentCocktail))
+                {
+                    var name = cocktails[currentCocktail];
+                    readyCocktails[name] += 1;
+                    ingredientQue.Dequeue();
+                    freshnesStack.Pop();
+                }
+                else
+                {
+                    freshnesStack.Pop();
+                    int now = ingredientQue.Dequeue() + 5;
+                    ingredientQue.Enqueue(now);
+                }
+            }
+
+            if (readyCocktails.All(x => x.Value >= 1))
+            {
+                Console.WriteLine("It's party time! The cocktails are ready!");
+            }
+            else
+            {
+                Console.WriteLine("What a pity! You didn't manage to prepare all cocktails.");
+
+            }
+            if (ingredientQue.Any())
+            {
+                int sum = ingredientQue.Sum();
+                Console.WriteLine($"Ingredients left: {sum}");
+            }
+
+            foreach (var item in readyCocktails.OrderBy(x => x.Key).Where(x => x.Value >= 1))
+            {
+                Console.WriteLine($" # {item.Key} --> {item.Value}");
+            }
+
+
+        }
+    }
+}
