@@ -1,0 +1,75 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ConsoleApp4
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            var male = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            var females = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            var queueFemales = new Queue<int>(females);
+            var stackMales = new Stack<int>(male);
+            var matches = 0;
+
+            while (stackMales.Count > 0 && queueFemales.Count > 0)
+            {
+                var currWomen = queueFemales.Peek();
+                var currMan = stackMales.Peek();
+                if (currMan <= 0)
+                {
+                    stackMales.Pop();
+                    continue;
+                }
+                if (currWomen <= 0)
+                {
+                    queueFemales.Dequeue();
+                    continue;
+                }
+                if (currMan % 25 == 0)
+                {
+                    stackMales.Pop();
+                    if (stackMales.Count > 0)
+                    {
+                        stackMales.Pop();
+                    }
+                    continue;
+                }
+                if (currWomen % 25 == 0)
+                {
+                    queueFemales.Dequeue();
+                    if (queueFemales.Count > 0)
+                    {
+                        queueFemales.Dequeue();
+                    }
+                    continue;
+                }
+
+                //match
+                if (currMan == currWomen)
+                {
+                    matches++;
+                    stackMales.Pop();
+                    queueFemales.Dequeue();
+                }
+                else
+                {
+                    queueFemales.Dequeue();
+                    stackMales.Pop();
+                    stackMales.Push(currMan - 2);
+                }
+            }
+
+            Console.WriteLine($"Matches: {matches}");
+            string malesString = stackMales.Count > 0 ? string.Join(", ", stackMales) : "none";
+            Console.WriteLine($"Males left: {malesString}");
+
+            string femalesString = queueFemales.Count > 0 ? string.Join(", ", queueFemales) : "none";
+            Console.WriteLine($"Females left: {femalesString}");
+
+        }
+    }
+}
+
