@@ -1,0 +1,86 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ConsoleApp4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Dictionary<int, string> materials = new Dictionary<int, string>
+            {
+                {25, "Glass" },
+                {50, "Aluminium" },
+                {75, "Lithium" },
+                {25, "Carbon fiber" },
+
+            };
+
+            Dictionary<string, int> results = new Dictionary<string, int>
+            {
+                { "Glass", 0 },
+                {"Aluminium", 0 },
+                {"Lithium", 0 },
+                {"Carbon fiber", 0 },
+
+            };
+
+            var inputLiquids = Console.ReadLine()
+            .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse)
+            .ToArray();
+
+            var inputItems = Console.ReadLine()
+            .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse)
+            .ToArray();
+
+            Queue<int> liquids = new Queue<int>(inputLiquids);
+            Stack<int> items = new Stack<int>(inputItems);
+            while (liquids.Count > 0 && items.Count > 0)
+            {
+                int liquidAmoutns = liquids.Peek();
+                int itemAmout = items.Peek();
+
+                int sumForMaterials = liquidAmoutns + itemAmout;
+                if (materials.ContainsKey(sumForMaterials))
+                {
+                    var materialName = materials[sumForMaterials];
+                    results[materialName] += 1;
+
+                    liquids.Dequeue();
+                    items.Pop();
+                }
+                else
+                {
+                    liquids.Dequeue();
+                    int itemValue = items.Pop() + 3;
+                    items.Push(itemValue);
+                }
+                if (results.All(x => x.Value >= 1))
+                {
+                    Console.WriteLine("Wohoo! You succeeded in building the spaceship!");
+                }
+                else
+                {
+                    Console.WriteLine("Ugh, what a pity! You didn't have enough materials to build the spaceship.");
+                }
+                if (liquids.Count == 0)
+                {
+                    Console.WriteLine("Liquids left: none");
+                }
+                else
+                {
+                    Console.WriteLine($"Liquids left: {string.Join(", ", liquids)}");
+                }
+
+                foreach (var (key, value) in results.OrderBy(x => x.Key))
+                {
+                    Console.WriteLine($"{key}: {value}");
+                }
+            }
+        }
+    }
+}
+
