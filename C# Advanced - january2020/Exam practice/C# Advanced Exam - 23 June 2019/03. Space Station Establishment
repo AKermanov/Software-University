@@ -1,0 +1,113 @@
+using System;
+
+namespace ConsoleApp4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int stephanRow = 0;
+            int stephenCol = 0;
+            int size = int.Parse(Console.ReadLine());
+            char[][] field = new char[size][]; //ползваме назъбен масив, може и [,]
+            for (int r = 0; r < size; r++) //още на обхождането проверяваме къде е играча, пълним натрицата
+            {
+                field[r] = new char[size];
+                char[] col = Console.ReadLine().ToCharArray();
+
+                for (int c = 0; c < size; c++)
+                {
+                    char ch = col[c];
+                    if (ch == 'S')
+                    {
+                        stephanRow = r;
+                        stephenCol = c;
+                    }
+                    field[r][c] = ch;
+                }
+            }
+
+            int stars = 0;
+            while (true)
+            {
+                field[stephanRow][stephenCol] = '-';
+                string command = Console.ReadLine();
+                switch (command)
+                {
+                    case "right":
+                        stephenCol += 1;
+                        break;
+                    case "left":
+                        stephenCol -= 1;
+                        break;
+                    case "up":
+                        stephanRow -= 1;
+                        break;
+                    case "down":
+                        stephanRow += 1;
+                        break;
+                }
+
+                if (IsOutside(size, stephanRow, stephenCol))
+                {
+                    Console.WriteLine("Bad news, the spaceship went to the void.");
+                    break;
+                }
+                char element = field[stephanRow][stephenCol];
+
+                if (element == 'O')
+                {
+
+                    field[stephanRow][stephenCol] = '-';
+                    for (int r = 0; r < size; r++)
+                    {
+                        bool foudn = false;
+                        for (int c = 0; c < size; c++)
+                        {
+                            char curMatrixEl = field[r][c];
+                            if (curMatrixEl == 'O')
+                            {
+                                stephanRow = r;
+                                stephenCol = c;
+
+                                foudn = true;
+                                break;
+                            }
+                        }
+                        if (foudn) //optinal
+                        {
+                            break;
+                        }
+                    }
+                }
+                else if (char.IsDigit(element))
+                {
+                    stars += element - '0'; // в аски таблицата ако извадим число от 0 се получава 
+                                            //0=49(аски) ако искаме да вземем 2 вадим 50(аски) - 49(аски) = 2(число)
+
+                }
+
+                field[stephanRow][stephenCol] = 'S';
+                if (stars >= 50)
+                {
+                    Console.WriteLine("Good news! Stephen succeeded in collecting enough star power!");
+                    break;
+                }
+            }
+
+            Console.WriteLine($"Star power collected: {stars}");
+            foreach (char[] col in field)
+            {
+                Console.WriteLine(string.Join("", col));
+            }
+        }
+
+        private static bool IsOutside(int size, int stephanRow, int stephenCol) //проверяваме дали е излязал от матрицата.
+        {
+            return stephanRow >= size ||
+                stephanRow < 0 ||
+                stephenCol >= size ||
+                stephenCol < 0;
+        }
+    }
+}
