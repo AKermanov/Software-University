@@ -1,0 +1,153 @@
+using System;
+using System.Linq;
+
+namespace ConsoleApp4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int countOfPresents = int.Parse(Console.ReadLine());
+            int sizeOfNeighbprhood = int.Parse(Console.ReadLine());
+            int goodKids = 0;
+            int santaRow = 0;
+            int santaCol = 0;
+            var matrix = new char[sizeOfNeighbprhood, sizeOfNeighbprhood];
+            for (int row = 0; row < sizeOfNeighbprhood; row++)
+            {
+                char[] rowValues = Console.ReadLine().Split().Select(char.Parse).ToArray();
+                for (int col = 0; col < sizeOfNeighbprhood; col++)
+                {
+                    char ch = rowValues[col];
+                    if (ch == 'S')
+                    {
+                        santaRow = row;
+                        santaCol = col;
+                    }
+
+                    matrix[row, col] = rowValues[col];
+                }
+            }
+
+            var command = Console.ReadLine();
+            while (countOfPresents > 0)
+            {
+                if (command == "Christmas morning")
+                {
+                    break;
+                }
+                matrix[santaRow, santaCol] = '-';
+                switch (command)
+                {
+                    case "right":
+                        santaCol += 1;
+                        break;
+                    case "left":
+                        santaCol -= 1;
+                        break;
+                    case "up":
+                        santaRow -= 1;
+                        break;
+                    case "down":
+                        santaRow += 1;
+                        break;
+                }
+
+                if (IsOutside(sizeOfNeighbprhood, santaRow, santaCol))
+                {
+
+                    //TODO stop loop, print matrix, pritn 2 message
+                    Console.WriteLine("Santa ran out of presents.");
+                    break;
+                }
+
+                char element = matrix[santaRow, santaCol];
+                if (element == 'V')
+                {
+                    countOfPresents--;
+                    goodKids++;
+                }
+                else if (element == 'C')
+                {
+                    matrix[santaRow, santaCol] = 'S';
+                    if (matrix[santaRow - 1, santaCol] == 'X' || matrix[santaRow - 1, santaCol] == 'V')
+                    {
+                        countOfPresents--;
+                        if (matrix[santaRow - 1, santaCol] == 'V')
+                        {
+                            goodKids++;
+                        }
+                        matrix[santaRow - 1, santaCol] = '-';
+                    }
+                    if (matrix[santaRow + 1, santaCol] == 'X' || matrix[santaRow + 1, santaCol] == 'V')
+                    {
+                        countOfPresents--;
+                        if (matrix[santaRow + 1, santaCol] == 'V')
+                        {
+                            goodKids++;
+                        }
+                        matrix[santaRow + 1, santaCol] = '-';
+                    }
+                    if (matrix[santaRow, santaCol - 1] == 'X' || matrix[santaRow, santaCol - 1] == 'V')
+                    {
+                        countOfPresents--;
+                        if (matrix[santaRow, santaCol - 1] == 'V')
+                        {
+                            goodKids++;
+                        }
+                        matrix[santaRow, santaCol - 1] = '-';
+                    }
+                    if (matrix[santaRow, santaCol + 1] == 'X' || matrix[santaRow, santaCol + 1] == 'V')
+                    {
+                        countOfPresents--;
+                        if (matrix[santaRow, santaCol + 1] == 'V')
+                        {
+                            goodKids++;
+                        }
+                        matrix[santaRow, santaCol + 1] = '-';
+                    }
+                }
+                matrix[santaRow, santaCol] = 'S';
+                command = Console.ReadLine();
+            }
+            if (countOfPresents == 0)
+            {
+                Console.WriteLine("Santa ran out of presents!");
+            }
+            int noPresetns = 0;
+            bool noPresentsForGoodKids = false;
+            for (int row = 0; row < sizeOfNeighbprhood; row++)
+            {
+                for (int col = 0; col < sizeOfNeighbprhood; col++)
+                {
+                    if (matrix[row, col] == 'V')
+                    {
+                        noPresetns++;
+                        noPresentsForGoodKids = true;
+                    }
+
+                    Console.Write(matrix[row, col] + " ");
+                }
+                Console.WriteLine();
+            }
+            if (noPresentsForGoodKids)
+            {
+                Console.WriteLine($"No presents for {noPresetns} nice kid/s.");
+            }
+            else
+            {
+                Console.WriteLine($"Good job, Santa! {goodKids} happy nice kid/s.");
+            }
+        }
+
+        private static bool IsOutside(int size, int santaRow, int santaCol) //проверяваме дали е излязал от матрицата.
+        {
+            return santaRow >= size ||
+                santaRow < 0 ||
+                santaCol >= size ||
+                santaCol < 0;
+        }
+
+    }
+
+}
