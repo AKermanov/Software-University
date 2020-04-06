@@ -1,0 +1,155 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ConsoleApp4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int firstPlayerRow = 0;
+            int firstPlayerCol = 0;
+            int secondPlayerRow = 0;
+            int secondPlayerCol = 0;
+            int size = int.Parse(Console.ReadLine());
+            char[][] field = new char[size][]; //ползваме назъбен масив, може и [,]
+            for (int r = 0; r < size; r++) //още на обхождането проверяваме къде е играча, пълним натрицата
+            {
+                field[r] = new char[size];
+                char[] col = Console.ReadLine().ToCharArray();
+
+                for (int c = 0; c < size; c++)
+                {
+                    char ch = col[c];
+                    if (ch == 'f')
+                    {
+                        firstPlayerRow = r;
+                        firstPlayerCol = c;
+                    }
+                    else if (ch == 's')
+                    {
+                        secondPlayerRow = r;
+                        secondPlayerCol = c;
+                    }
+                    field[r][c] = ch;
+                }
+            }
+            while (true)
+            {
+                var diredtion = Console.ReadLine().Split();
+                var firstPlayerCommand = diredtion[0];
+                var secondPlayerCommand = diredtion[1];
+
+                switch (firstPlayerCommand)
+                {
+                    case "left":
+                        if (firstPlayerCol - 1 < 0)
+                        {
+                            firstPlayerCol = size - 1;
+                        }
+                        else
+                        {
+                            firstPlayerCol -= 1;
+                        }
+                        break;
+                    case "right":
+                        if (firstPlayerCol + 1 >= size)
+                        {
+                            firstPlayerCol = 0;
+                        }
+                        else
+                        {
+                            firstPlayerCol += 1;
+                        }
+                        break;
+                    case "up":
+                        if (firstPlayerRow - 1 < 0)
+                        {
+                            firstPlayerRow = size - 1;
+                        }
+                        else
+                        {
+                            firstPlayerRow -= 1;
+                        }
+                        break;
+                    case "down":
+                        if (firstPlayerRow + 1 >= size)
+                        {
+                            firstPlayerRow = 0;
+                        }
+                        else
+                        {
+                            firstPlayerRow += 1;
+                        }
+                        break;
+                }
+
+                if (field[firstPlayerRow][firstPlayerCol] == 's')
+                {
+                    field[firstPlayerRow][firstPlayerCol] = 'x';
+                    break;
+                }
+                field[firstPlayerRow][firstPlayerCol] = 'f';
+
+                switch (secondPlayerCommand)
+                {
+                    case "left":
+                        if (secondPlayerCol - 1 < 0)
+                        {
+                            secondPlayerCol = size - 1;
+                        }
+                        else
+                        {
+                            secondPlayerCol -= 1;
+                        }
+                        break;
+                    case "right":
+                        if (secondPlayerCol + 1 >= size)
+                        {
+                            secondPlayerCol = 0;
+                        }
+                        else
+                        {
+                            secondPlayerCol += 1;
+                        }
+                        break;
+                    case "up":
+                        if (secondPlayerRow - 1 < 0)
+                        {
+                            secondPlayerRow = size - 1;
+                        }
+                        else
+                        {
+                            secondPlayerRow -= 1;
+                        }
+                        break;
+                    case "down":
+                        if (secondPlayerRow + 1 >= size)
+                        {
+                            secondPlayerRow = 0;
+                        }
+                        else
+                        {
+                            secondPlayerRow += 1;
+                        }
+                        break;
+                }
+
+                if (field[secondPlayerRow][secondPlayerCol] == 'f')
+                {
+                    field[secondPlayerRow][secondPlayerCol] = 'x';
+                    break;
+                }
+                field[secondPlayerRow][secondPlayerCol] = 's';
+            }
+
+            foreach (char[] col in field)
+            {
+                Console.WriteLine(string.Join("", col));
+            }
+        }
+
+    }
+}
+
