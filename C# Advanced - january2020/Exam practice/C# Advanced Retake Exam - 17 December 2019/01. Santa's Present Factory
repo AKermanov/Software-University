@@ -1,0 +1,94 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ConsoleApp4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var inputMatirials = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            var inputMagic = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            var matirials = new Stack<int>(inputMatirials);
+            var magic = new Queue<int>(inputMagic);
+            var toys = new Dictionary<int, string>
+            {
+                {150 ,"Doll"},
+                {250,"Wooden train"},
+                {300 ,"Teddy bear"},
+                {400 ,"Bicycle"}
+
+            };
+
+            Dictionary<string, int> results = new Dictionary<string, int>
+            {
+                {"Doll", 0},
+                {"Wooden train", 0},
+                {"Teddy bear", 0},
+                {"Bicycle", 0}
+            };
+
+            while (magic.Count > 0 && matirials.Count > 0)
+            {
+                int currMatirial = matirials.Peek();
+                int currMagic = magic.Peek();
+                int sumForPresents = currMatirial * currMagic;
+                if (currMatirial == 0)
+                {
+                    matirials.Pop();
+                }
+                if (currMagic == 0)
+                {
+                    magic.Dequeue();
+                }
+                if (toys.ContainsKey(sumForPresents))
+                {
+                    var toyName = toys[sumForPresents];
+                    results[toyName] += 1;
+
+                    matirials.Pop();
+                    magic.Dequeue();
+                }
+                else if (sumForPresents < 0)
+                {
+                    var sum = currMatirial + currMagic;
+                    matirials.Pop();
+                    magic.Dequeue();
+                    matirials.Push(sum);
+                }
+                else if (!toys.ContainsKey(sumForPresents) && sumForPresents > 0)
+                {
+                    magic.Dequeue();
+                    var sum = matirials.Pop() + 15;
+                    matirials.Push(sum);
+                }
+            }
+
+            bool isPresents = results["Doll"] > 0 && results["Wooden train"] > 0;
+            bool isPresents2 = results["Teddy bear"] > 0 && results["Bicycle"] > 0;
+            if (isPresents || isPresents2)
+            {
+                Console.WriteLine("The presents are crafted! Merry Christmas!");
+            }
+            else
+            {
+                Console.WriteLine("No presents this Christmas!");
+            }
+            if (matirials.Count > 0)
+            {
+                Console.WriteLine($"Materials left: {string.Join(", ", matirials)}");
+            }
+            if (magic.Count > 0)
+            {
+                Console.WriteLine($"Magic left: {string.Join(", ", magic)}");
+            }
+
+            foreach (var item in results.Where(x => x.Value > 0).OrderBy(x => x.Key))
+            {
+                Console.WriteLine($"{item.Key}: {item.Value}");
+            }
+
+        }
+    }
+}
