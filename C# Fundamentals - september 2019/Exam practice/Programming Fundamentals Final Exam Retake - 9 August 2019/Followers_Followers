@@ -1,0 +1,95 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ConsoleApp35
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+            Dictionary<string, Follow> follows = new Dictionary<string, Follow>();
+            //Dictionary<string, int> likes = new Dictionary<string, int>();
+            //Dictionary<string, int> comments = new Dictionary<string, int>();
+
+            while (input != "Log out")
+            {
+                string[] tokens = input.Split(": ");
+                string command = tokens[0];
+                string userName = tokens[1];
+
+                switch (command)
+                {
+                    case "New follower":
+                        if (!follows.ContainsKey(userName))
+                        {
+                            follows.Add(userName, new Follow(userName));
+
+                        }
+                        break;
+
+                    case "Like":
+                        int countLikes = int.Parse(tokens[2]);
+                        if (!follows.ContainsKey(userName))
+                        {
+                            follows.Add(userName, new Follow(userName));
+                        }
+
+                        //Follow follow = follows[userName];
+                        //follow.Likes += countLikes;
+                        follows[userName].Likes += countLikes; //това е == на горното което е закоментирано
+                        break;
+
+                    case "Comment":
+
+                        if (!follows.ContainsKey(userName))
+                        {
+                            follows.Add(userName, new Follow(userName));
+                        }
+                        follows[userName].Comments += 1;
+                        break;
+
+                    case "Blocked":
+                        if (follows.ContainsKey(userName))
+                        {
+                            follows.Remove(userName);
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{userName} doesn't exist.");
+                        }
+                        break;
+                }
+
+                input = Console.ReadLine();
+            }
+
+            Console.WriteLine($"{follows.Count} followers");
+
+            foreach (KeyValuePair<string, Follow> kvp in follows.OrderByDescending(f => f.Value.Likes).ThenBy(f => f.Key))
+            {
+                string userName = kvp.Key;
+                Follow follow = kvp.Value;
+
+                Console.WriteLine($"{follow.Username}: {follow.Likes + follow.Comments}");
+            }
+
+        }
+    }
+
+    public class Follow
+    {
+        public Follow(string username, int likes = 0, int comments = 0)
+        {
+            Username = username;
+            Likes = likes;
+            Comments = comments;
+
+        }
+        public string Username { get; set; }
+        public int Likes { get; set; }
+        public int Comments { get; set; }
+    }
+
+}
