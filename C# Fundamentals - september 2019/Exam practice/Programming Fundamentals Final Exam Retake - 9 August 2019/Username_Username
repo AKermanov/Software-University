@@ -1,0 +1,79 @@
+using System;
+using System.Linq;
+
+namespace ConsoleApp35
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+            string command = null;
+
+            while ((command = Console.ReadLine()) != "Sign up")
+            {
+                string[] commandArgs = command.Split();
+                string argum = commandArgs[0];
+
+                if (argum == "Case")
+                {
+                    string replaceCommand = commandArgs[1];
+                    if (replaceCommand == "lower")
+                    {
+                        input = input.ToLower();
+                        Console.WriteLine(input);
+                    }
+                    else
+                    {
+                        input = input.ToUpper();
+                        Console.WriteLine(input);
+                    }
+                }
+                else if (argum == "Reverse")
+                {
+                    int startIndex = int.Parse(commandArgs[1]);
+                    int endIndex = int.Parse(commandArgs[2]);
+                    if (startIndex >= 0 && endIndex <= input.Length)
+                    {
+                        string stringToReverse = input.Substring(startIndex, endIndex);
+                        char[] toPrint = stringToReverse.Reverse().ToArray();
+                        Console.WriteLine(toPrint);
+                    }
+
+                }
+                else if (argum == "Cut")
+                {
+                    string cut = commandArgs[1];
+                    if (input.Contains(cut))
+                    {
+                        input = input.Replace(cut, "");
+                        Console.WriteLine(input);
+
+                    }
+                    else
+                    {
+                        Console.WriteLine($"The word {input} doesn't contain {cut}.");
+                    }
+                }
+                else if (argum == "Replace")
+                {
+                    char toReplays = char.Parse(commandArgs[1]);
+                    input = input.Replace(toReplays, '*');
+                    Console.WriteLine(input);
+                }
+                else if (argum == "Check")
+                {
+                    char containsChar = char.Parse(commandArgs[1]);
+                    if (input.Contains(containsChar))
+                    {
+                        Console.WriteLine("Valid");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Your username must contain {containsChar}.");
+                    }
+                }
+            }
+        }
+    }
+}
