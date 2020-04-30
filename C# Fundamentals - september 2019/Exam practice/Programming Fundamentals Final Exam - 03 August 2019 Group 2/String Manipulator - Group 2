@@ -1,0 +1,80 @@
+using System;
+
+namespace ConsoleApp36
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string receivedSting = Console.ReadLine();
+            string command = null;
+
+            while ((command = Console.ReadLine()) != "Done")
+            {
+                string[] tokens = command.Split();
+                string tokenArgs = tokens[0];
+
+                switch (tokenArgs)
+                {
+                    case "Change":
+                        string chars = tokens[1];
+                        string replacement = tokens[2];
+                        receivedSting = receivedSting.Replace(chars, replacement);
+                        Console.WriteLine(receivedSting);
+                        break;
+
+                    case "Includes":
+                        string includeStr = tokens[1];
+
+                        if (receivedSting.Contains(includeStr))
+                        {
+                            Console.WriteLine("True");
+                        }
+                        else
+                        {
+                            Console.WriteLine("False");
+
+                        }
+                        break;
+
+                    case "End":
+                        string endStr = tokens[1];
+
+                        if (receivedSting.EndsWith(endStr))
+                        {
+                            Console.WriteLine("True");
+                        }
+                        else
+                        {
+                            Console.WriteLine("False");
+
+                        }
+                        break;
+
+                    case "Uppercase":
+                        receivedSting = receivedSting.ToUpper();
+                        Console.WriteLine(receivedSting);
+                        break;
+
+                    case "FindIndex":
+                        string find = tokens[1];
+                        if (receivedSting.Contains(find))
+                        {
+                            int index = receivedSting.IndexOf(find);
+                            Console.WriteLine(index);
+                        }
+                        break;
+
+                    case "Cut":
+                        int startIndex = int.Parse(tokens[1]);
+                        int endIndex = int.Parse(tokens[2]);
+                        int lenght = endIndex - startIndex;
+                        receivedSting = receivedSting.Remove(0, startIndex);
+                        receivedSting = receivedSting.Substring(0, endIndex);
+                        Console.WriteLine(receivedSting);
+                        break;
+                }
+            }
+        }
+    }
+}
