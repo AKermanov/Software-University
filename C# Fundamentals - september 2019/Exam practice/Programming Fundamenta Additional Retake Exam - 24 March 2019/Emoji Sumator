@@ -1,0 +1,88 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+namespace ConsoleApp37
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+            int[] emojiCode = Console.ReadLine().Split(":").Select(int.Parse).ToArray();
+            string pattern = @"\s:[a-z]{4,}:[\s\,\.\!\??]";
+            int sumOfEmoji = 0;
+            Match match = Regex.Match(input, pattern);
+            StringBuilder sb = new StringBuilder();
+            List<string> foundEmoji = new List<string>();
+
+            for (int i = 0; i < emojiCode.Length; i++)
+            {
+                char currentChar = Convert.ToChar(emojiCode[i]);
+
+                if (char.IsLetter(currentChar))
+                {
+                    sb.Append(currentChar);
+                }
+            }
+            string emojiCodeInString = sb.ToString();
+            sb.Clear();
+            bool isEmojiCodeAndEmojiSame = false;
+            bool emojiFound = false;
+
+            while (match.Success)
+            {
+                emojiFound = true;
+                string currentMatch = match.ToString().Trim(' ');
+                foundEmoji.Add(currentMatch);
+                for (int i = 0; i < currentMatch.Length; i++)
+                {
+                    char current = (char)currentMatch[i];
+                    if (char.IsLetter(current))
+                    {
+                        sb.Append(current);
+                    }
+                }
+
+                string onlyEmoji = sb.ToString();
+                sb.Clear();
+                if (onlyEmoji == emojiCodeInString)
+                {
+                    isEmojiCodeAndEmojiSame = true;
+                }
+
+
+                for (int i = 0; i < currentMatch.Length; i++)
+                {
+                    char currentChar = currentMatch[i];
+                    if (char.IsLetter(currentChar))
+                    {
+                        sumOfEmoji += currentChar;
+                    }
+                }
+
+                match = match.NextMatch();
+            }
+
+            if (emojiFound)
+            {
+                if (isEmojiCodeAndEmojiSame)
+                {
+                    sumOfEmoji *= 2;
+                }
+
+
+
+                Console.WriteLine($"Emojis found: {string.Join(", ", foundEmoji)}");
+                Console.WriteLine($"Total Emoji Power: {sumOfEmoji}");
+            }
+            else
+            {
+                Console.WriteLine("Total Emoji Power: 0");
+            }
+
+        }
+    }
+}
