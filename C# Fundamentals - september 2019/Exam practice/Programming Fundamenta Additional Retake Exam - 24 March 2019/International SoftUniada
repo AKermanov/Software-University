@@ -1,0 +1,52 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ConsoleApp37
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+            Dictionary<string, Dictionary<string, int>> competitors = new Dictionary<string, Dictionary<string, int>>();
+
+            while (input != "END")
+            {
+                string[] tokens = input.Split(" -> ");
+                string country = tokens[0];
+                string contestantName = tokens[1];
+                int points = int.Parse(tokens[2]);
+
+                if (!competitors.ContainsKey(country))
+                {
+                    competitors.Add(country, new Dictionary<string, int>());
+                    competitors[country].Add(contestantName, points);
+                }
+                else if (competitors.ContainsKey(country))
+                {
+                    if (!competitors[country].ContainsKey(contestantName))
+                    {
+                        competitors[country].Add(contestantName, points);
+                    }
+                    else if (competitors[country].ContainsKey(contestantName))
+                    {
+                        competitors[country][contestantName] += points;
+                    }
+                }
+
+                input = Console.ReadLine();
+            }
+
+            foreach (var item in competitors.OrderByDescending(z => z.Value.Values.Sum()))
+            {
+                Console.WriteLine($"{item.Key}: {item.Value.Values.Sum()}");
+
+                foreach (var kvp in item.Value)
+                {
+                    Console.WriteLine($" -- {kvp.Key} -> {kvp.Value}");
+                }
+            }
+        }
+    }
+}
