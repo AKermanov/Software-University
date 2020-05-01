@@ -1,0 +1,34 @@
+using System;
+
+namespace ConsoleApp37
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int numberOfStudents = int.Parse(Console.ReadLine());
+            int countOfTheLecture = int.Parse(Console.ReadLine());
+            int initialBonuss = int.Parse(Console.ReadLine());
+            double totalBonus = 0;
+            int mostAttendence = 0;
+            double studentWithHigestBonus = int.MinValue;
+
+            for (int i = 0; i < numberOfStudents; i++)
+            {
+                int attendance = int.Parse(Console.ReadLine());
+                totalBonus = attendance * 1.0 / countOfTheLecture * (5 + initialBonuss);
+
+                if (totalBonus > studentWithHigestBonus)
+                {
+                    studentWithHigestBonus = Math.Ceiling(totalBonus);
+                    mostAttendence = attendance;
+                }
+                totalBonus = 0;
+            }
+
+            Console.WriteLine($"The maximum bonus score for this course is {studentWithHigestBonus}." +
+                $"The student has attended {mostAttendence} lectures.");
+
+        }
+    }
+}
