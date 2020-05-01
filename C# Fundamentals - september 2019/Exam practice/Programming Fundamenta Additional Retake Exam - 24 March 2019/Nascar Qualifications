@@ -1,0 +1,91 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ConsoleApp37
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+            List<string> raicers = input.Split().ToList();
+            while (input != "end")
+            {
+                string[] command = input.Split();
+                string commandArgs = command[0];
+
+                switch (commandArgs)
+                {
+                    case "Race":
+                        string racer = command[1];
+                        if (!raicers.Contains(racer))
+                        {
+                            raicers.Add(racer);
+                        }
+                        break;
+
+                    case "Accident":
+                        string racer1 = command[1];
+                        if (raicers.Contains(racer1))
+                        {
+                            raicers.Remove(racer1);
+                        }
+                        break;
+
+                    case "Box":
+                        string racerBox = command[1];
+                        if (raicers.Contains(racerBox))
+                        {
+                            string lastElement = raicers[raicers.Count - 1];
+                            if (lastElement != racerBox)
+                            {
+                                int raiserPosition = 0;
+                                for (int i = 0; i < raicers.Count; i++)
+                                {
+                                    if (raicers[i] == racerBox)
+                                    {
+                                        raiserPosition = i;
+                                        break;
+                                    }
+                                }
+
+                                string elementToMove = raicers[raiserPosition];
+                                raicers.Remove(racerBox);
+                                raicers.Insert(raiserPosition + 1, racerBox);
+                            }
+                        }
+                        break;
+
+                    case "Overtake":
+                        string racer12 = command[1];
+                        int positionToMove = int.Parse(command[2]);
+                        int moveTo = 0;
+                        if (raicers.Contains(racer12))
+                        {
+
+                            if (positionToMove >= 1 && positionToMove <= raicers.Count - 1)
+                            {
+                                for (int i = 0; i < raicers.Count; i++)
+                                {
+                                    if (raicers[i] == racer12)
+                                    {
+                                        moveTo = i;
+                                        break;
+                                    }
+                                }
+
+                                raicers.Remove(racer12);
+                                raicers.Insert(moveTo - positionToMove, racer12);
+                            }
+                        }
+                        break;
+                }
+
+                input = Console.ReadLine();
+            }
+
+            Console.WriteLine(string.Join(" ~ ", raicers));
+        }
+    }
+}
