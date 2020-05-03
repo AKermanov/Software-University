@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ConsoleApp37
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Dictionary<string, int> goodChildren = new Dictionary<string, int>();
+            Dictionary<string, int> totPresents = new Dictionary<string, int>();
+
+            string input = null;
+            while ((input = Console.ReadLine()) != "END")
+            {
+                string[] command = input.Split("->");
+                string commandArgs = command[0];
+                if (commandArgs == "Remove")
+                {
+                    string childToRemove = command[1];
+                    if (goodChildren.ContainsKey(childToRemove))
+                    {
+                        goodChildren.Remove(childToRemove);
+                        continue;
+                    }
+                    continue;
+
+                }
+                string childName = command[0];
+                string typeOfToy = command[1];
+                int amount = int.Parse(command[2]);
+                if (!totPresents.ContainsKey(typeOfToy))
+                {
+                    totPresents.Add(typeOfToy, 0);
+                }
+                if (!goodChildren.ContainsKey(childName))
+                {
+                    goodChildren.Add(childName, 0);
+                }
+
+                goodChildren[childName] += amount;
+                totPresents[typeOfToy] += amount;
+            }
+            Console.WriteLine("Children:");
+            foreach (KeyValuePair<string, int> children in goodChildren.OrderByDescending(a => a.Value).ThenBy(f => f.Key))
+            {
+                Console.WriteLine($"{children.Key} -> {children.Value}");
+            }
+
+            Console.WriteLine("Presents:");
+            foreach (KeyValuePair<string, int> item in totPresents)
+            {
+                Console.WriteLine($"{item.Key} -> {item.Value}");
+            }
+        }
+    }
+}
