@@ -1,0 +1,42 @@
+using System;
+
+namespace ConsoleApp37
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int days = int.Parse(Console.ReadLine());
+            int users = int.Parse(Console.ReadLine());
+            double moneyMake = double.Parse(Console.ReadLine());
+            double totMoney = 0;
+            double moneyFor1Day = 0;
+
+            for (int i = 1; i <= users; i++)
+            {
+                int word = int.Parse(Console.ReadLine());
+                if (word >= 0 && word <= 5)
+                {
+                    if (word == 1)
+                    {
+                        moneyFor1Day = (moneyMake * 2) + moneyFor1Day;
+                    }
+                    else
+                    {
+                        moneyFor1Day += moneyMake;
+                    }
+                    if (i % 3 == 0)
+                    {
+                        moneyFor1Day = (moneyMake * 3) + moneyFor1Day;
+                    }
+
+                    totMoney = moneyFor1Day * 10;
+                }
+            }
+
+            //totMoney *= days;
+
+            Console.WriteLine($"Total money earned for {days} days: {totMoney:f2}");
+        }
+    }
+}
