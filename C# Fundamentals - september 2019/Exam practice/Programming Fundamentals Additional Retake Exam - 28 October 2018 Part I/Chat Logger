@@ -1,0 +1,67 @@
+using System;
+using System.Collections.Generic;
+
+namespace ConsoleApp37
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = null;
+            List<string> message = new List<string>();
+
+            while ((input = Console.ReadLine()) != "end")
+            {
+                string[] tokens = input.Split();
+                string command = tokens[0];
+
+                switch (command)
+                {
+                    case "Chat":
+                        string addMessage = tokens[1];
+                        message.Add(addMessage);
+                        break;
+
+                    case "Delete":
+                        string messegeToDelete = tokens[1];
+                        if (message.Contains(messegeToDelete))
+                        {
+                            message.Remove(messegeToDelete);
+                        }
+                        break;
+
+                    case "Edit":
+                        string messegeToEdit = tokens[1];
+                        string editedVersion = tokens[2];
+                        int index = message.IndexOf(messegeToEdit);
+                        message.RemoveAt(index);
+                        message.Insert(index, editedVersion);
+                        break;
+
+                    case "Pin":
+                        string messegeToPin = tokens[1];
+                        int index1 = message.IndexOf(messegeToPin);
+                        message.RemoveAt(index1);
+                        message.Add(messegeToPin);
+
+                        break;
+
+
+                    case "Spam":
+                        for (int i = 1; i < tokens.Length; i++)
+                        {
+                            message.Add(tokens[i]);
+                        }
+                        break;
+
+                }
+            }
+
+            foreach (var item in message)
+            {
+                Console.WriteLine(item);
+            }
+
+        }
+    }
+}
