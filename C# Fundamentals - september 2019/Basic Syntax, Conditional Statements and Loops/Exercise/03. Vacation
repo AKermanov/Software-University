@@ -1,0 +1,88 @@
+using System;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int peopleNumber = int.Parse(Console.ReadLine());
+            string typeOfGroup = Console.ReadLine();
+            string day = Console.ReadLine();
+            double priceForOneDay = 0;
+            double totPrice = 0;
+
+            if (typeOfGroup == "Students")
+            {
+                if (day == "Friday")
+                {
+                    priceForOneDay = 8.45;
+
+                }
+                else if (day == "Saturday")
+                {
+                    priceForOneDay = 9.80;
+                }
+                else if (day== "Sunday")
+                {
+                    priceForOneDay = 10.46;
+                }
+                totPrice = peopleNumber * priceForOneDay;
+
+                if (peopleNumber>= 30)
+                {
+                    totPrice = totPrice * 0.85;
+                }
+            }
+
+            else if (typeOfGroup == "Business")
+            {
+                if (day == "Friday")
+                {
+                    priceForOneDay = 10.90;
+
+                }
+                else if (day == "Saturday")
+                {
+                    priceForOneDay = 15.60;
+                }
+                else if (day == "Sunday")
+                {
+                    priceForOneDay = 16;
+                }
+                totPrice = peopleNumber * priceForOneDay;
+
+                if (peopleNumber >= 100)
+                {
+                    totPrice = (peopleNumber - 10) * priceForOneDay;
+                }
+            }
+
+            else if (typeOfGroup == "Regular")
+            {
+                if (day == "Friday")
+                {
+                    priceForOneDay = 15;
+
+                }
+                else if (day == "Saturday")
+                {
+                    priceForOneDay = 20;
+                }
+                else if (day == "Sunday")
+                {
+                    priceForOneDay = 22.5;
+                }
+                totPrice = peopleNumber * priceForOneDay;
+
+                if (peopleNumber >= 10 && peopleNumber<= 20)
+                {
+                    totPrice = totPrice * 0.95;
+                }
+            }
+
+            Console.WriteLine($"Total price: {totPrice:f2}");
+
+        }
+    }
+}
