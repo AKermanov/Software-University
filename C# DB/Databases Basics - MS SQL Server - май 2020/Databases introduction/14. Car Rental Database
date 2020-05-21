@@ -1,0 +1,92 @@
+CREATE TABLE Categories(
+Id INT PRIMARY KEY IDENTITY NOT NULL,
+CategoryName VARCHAR(30) NOT NULL,
+DailyRate DECIMAL(5,2),
+WeeklyRate DECIMAL(5,2),
+MonthlyRate DECIMAL(5,2),
+WeekendRate DECIMAL(5,2)
+) 
+
+INSERT INTO Categories(CategoryName, DailyRate, WeeklyRate, MonthlyRate, WeekendRate)
+VALUES
+('CAR1', 12.2, 12.2, 12.2, 12.2),
+('CAR2', 12.2, 21.2, 21.2, 12.2),
+('CAR3', 12.2, 12.2, 12.2, 21.2)
+
+
+CREATE TABLE Cars(
+Id INT PRIMARY KEY IDENTITY NOT NULL,
+PlateNumber VARCHAR(20) NOT NULL,
+Manufacturer VARCHAR(100) NOT NULL,
+Model VARCHAR(50) NOT NULL,
+CarYear DATETIME2 NOT NULL,
+CategoryId INT FOREIGN KEY REFERENCES Categories(Id) NOT NULL,
+Doors TINYINT NOT NULL,
+Picture VARBINARY(MAX) 
+   CHECK(DATALENGTH(Picture) <= 900 * 1024),
+Condition VARCHAR(20) NOT NULL,
+Available BIT NOT NULL
+)
+
+INSERT INTO Cars(PlateNumber, Manufacturer, Model, CarYear, CategoryId, Doors, Picture, Condition, Available)
+          VALUES
+                   ('DF235FD', 'FORD', 'SHELBY', '02/03/1967', 1, 5, NULL, 'NICE', 1),
+				   ('DA235FD', 'FORD', 'MUSTANG', '02/03/1987', 2, 5, NULL, 'SUPER', 1),
+				   ('DF23435FD', 'FORD', 'SHELBY', '02/03/1957', 2, 5, NULL, 'GOOD', 1)
+
+
+CREATE TABLE Employees(
+Id INT PRIMARY KEY IDENTITY NOT NULL,
+ FirstName VARCHAR(20) NOT NULL,
+LastName VARCHAR(20) NOT NULL,
+Title VARCHAR(10) NOT NULL,
+Notes VARCHAR(300)
+) 
+
+INSERT INTO Employees(FirstName, LastName, Title, Notes)
+    VALUES
+	('GOSHO', 'GOSHEV' , 'SALES', NULL),
+	('GOSHO1', 'GOSHEV1' , 'REPAIR', NULL),
+	('GOSHO2', 'GOSHEV2' , 'SAL1ES', NULL)
+
+
+CREATE TABLE Customers(
+Id INT PRIMARY KEY IDENTITY NOT NULL,
+DriverLicenceNumber INT NOT NULL,
+FullName VARCHAR(40) NOT NULL,
+[Address] VARCHAR(100) NOT NULL,
+City VARCHAR(40) NOT NULL,
+ZIPCode VARCHAR(20) NOT NULL,
+Notes VARCHAR(300) NOT NULL
+) 
+
+INSERT INTO Customers(DriverLicenceNumber, FullName, [Address], City, ZIPCode, Notes)
+    VALUES
+	(122123345, 'GOSHE', 'GOSHE', 'S. PARNOVO','43534FFG', 'CRAZY'),
+	(123434525, 'GO1SHE', 'GOS1HE', 'S. P2ARNOVO','435234FFG', 'REGULAR'),
+	(1213345215, 'GOSH3E', 'GOSH3E', 'S. PARNO3VO','435334FFG', 'NEVERE RENT HIM')
+
+
+CREATE TABLE RentalOrders (
+Id INT PRIMARY KEY IDENTITY NOT NULL,
+EmployeeId INT FOREIGN KEY REFERENCES Employees(Id) NOT NULL,
+CustomerId INT FOREIGN KEY REFERENCES Customers(Id) NOT NULL,
+CarId INT NOT NULL,
+TankLevel DECIMAL(5,2) NOT NULL,
+KilometrageStart INT NOT NULL,
+KilometrageEnd INT NOT NULL,
+TotalKilometrage INT NOT NULL,
+StartDate DATETIME2 NOT NULL,
+EndDate DATETIME2 NOT NULL,
+TotalDays SMALLINT NOT NULL,
+RateApplied DECIMAL(5,2) NOT NULL,
+TaxRate MONEY NOT NULL,
+OrderStatus BIT NOT NULL,
+Notes VARCHAR(300)
+)
+
+INSERT INTO RentalOrders(EmployeeId, CustomerId, CarId, TankLevel, KilometrageStart, KilometrageEnd, TotalKilometrage, StartDate, EndDate, TotalDays, RateApplied, TaxRate, OrderStatus, Notes)
+        VALUES
+		(1, 2, 435345, 30.2, 3234, 234345, 23435,'02/03/1999' , '02/03/2000', 80, 20.2, '$994.99', 1, 'ALL FINE'),
+		(1, 2, 4115345, 40.2, 32134, 2434345, 253435,'02/03/1200' , '02/03/1201', 20, 10.2, '$94.99', 0, 'ALL FINE'),
+		(1, 2, 4353451, 10.2, 32341, 2343451, 123435,'02/03/2020' , '02/03/2020', 60, 10.2, '$9914.99', 1, 'ALL FINE')
