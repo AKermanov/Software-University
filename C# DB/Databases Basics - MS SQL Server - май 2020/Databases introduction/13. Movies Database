@@ -1,0 +1,62 @@
+CREATE TABLE Directors(
+Id INT PRIMARY KEY IDENTITY NOT NULL,
+DirectorsName NVARCHAR(30) NOT NULL,
+Notes NVARCHAR(300)
+)
+
+CREATE TABLE Genres(
+Id INT PRIMARY KEY IDENTITY NOT NULL,
+GenreName NVARCHAR(30) NOT NULL,
+Notes NVARCHAR(300)
+)
+
+CREATE TABLE Categories(
+Id INT PRIMARY KEY IDENTITY NOT NULL,
+CategoryName NVARCHAR(30) NOT NULL,
+Notes NVARCHAR(300)
+)
+
+CREATE TABLE Movies(
+Id INT PRIMARY KEY IDENTITY,
+Title NVARCHAR(40) NOT NULL,
+DirectorId INT FOREIGN KEY REFERENCES Directors(Id) NOT NULL,
+CopyrightYear DATETIME2 NOT NULL,
+[Length] DATE NOT NULL,
+GenreId INT FOREIGN KEY REFERENCES Genres(Id) NOT NULL,
+CategoryId INT FOREIGN KEY REFERENCES Categories(Id) NOT NULL,
+Rating DECIMAL(2,1),
+Notes NVARCHAR(300)
+)
+
+ INSERT INTO Directors(DirectorsName, Notes)
+ VALUES
+   ('Pesho', 'STAVA' ),
+   ('Pesho1', 'I TOI STAVA'),
+   ('Pesho2', 'NE STAVA'),
+   ('Pesho3', 'I TOI NE STAVA'),
+   ('Pesho4', 'DOBRE E')
+
+
+   INSERT INTO Genres(GenreName, Notes)
+ VALUES
+   ('Drama', 'ne stava' ),
+   ('Horror', 'ne stava'),
+   ('Action', 'STAVA'),
+   ('XXX', 'moje i po dobre'),
+   ('comedy', 'super')
+
+   INSERT INTO Categories(CategoryName, Notes)
+ VALUES
+   ('gosho', 'STAVA' ),
+   ('gosho1', 'I TOI STAVA'),
+   ('gosho2', 'NE STAVA'),
+   ('gosho3', 'I TOI NE STAVA'),
+   ('gosho4', 'DOBRE E')
+
+INSERT INTO Movies(Title,DirectorId,CopyrightYear,[Length],GenreId,CategoryId,Rating,Notes)
+VALUES
+('film',2,'02/03/1995','01:32:21',2,3,2.2,NULL),
+('film1',2,'02/03/1995','01:32:21',2,3,2.2,NULL),
+('film2',2,'02/03/1995','01:32:21',2,3,2.2,NULL),
+('film3',2,'02/03/1995','01:32:21',2,3,2.2,NULL),
+('film4',2,'02/03/1995','01:32:21',2,3,2.2,NULL)
