@@ -1,9 +1,0 @@
-SELECT CountryName, CountryCode,
----nova kolona
-  CASE
-  WHEN CurrencyCode = 'EUR' THEN 'Euro'
-  ELSE 'Not Euro'
-  END AS [Currency]
-  ---nova kolona
-FROM Countries
-ORDER BY CountryName ASC
