@@ -1,0 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp22
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int people = int.Parse(Console.ReadLine());
+            int elevatorCapacity = int.Parse(Console.ReadLine());
+
+            if (people<=elevatorCapacity)
+            {
+                Console.WriteLine(1);
+            }
+            else
+            {
+                double firstCours = people * 1.0 / elevatorCapacity;
+                Console.WriteLine(Math.Ceiling(firstCours));
+            }        
+        }
+    }
+}
