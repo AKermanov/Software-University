@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp22
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+
+            for (int firstRow = 0; firstRow < n; firstRow++)
+            {
+                for (int scondRow = 0; scondRow < n; scondRow++)
+                {
+                    for (int thurdRow = 0; thurdRow < n; thurdRow++)
+                    {
+                        char firstChar = (char)('a' + firstRow);
+                        char secondChar = (char)('a' + scondRow);
+                        char thurdChar = (char)('a' + thurdRow);
+
+                        Console.WriteLine($"{firstChar}{secondChar}{thurdChar}");
+                    }
+                }
+            }
+        }
+    }
+}
