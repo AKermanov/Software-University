@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp22
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            double volumeOfTheKeg = 0;
+            double maxVolumeKeg = double.MinValue ;
+            string maxVolumeKebName = string.Empty;
+
+            for (int i = 1; i <= n; i++)
+            {
+                string model = Console.ReadLine();
+                double radios = double.Parse(Console.ReadLine());
+                int hight = int.Parse(Console.ReadLine());
+
+                volumeOfTheKeg = Math.PI * Math.Pow(radios, 2) * hight;
+
+                if (maxVolumeKeg < volumeOfTheKeg)
+                {
+                    maxVolumeKeg = volumeOfTheKeg;
+                    maxVolumeKebName = model;
+                }
+
+                volumeOfTheKeg = 0;
+            }
+            Console.WriteLine(maxVolumeKebName);
+        }
+    }
+}
