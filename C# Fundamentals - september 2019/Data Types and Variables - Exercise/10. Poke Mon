@@ -1,0 +1,35 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp23
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int pokePowerN = int.Parse(Console.ReadLine());
+            int pokeDistanceM = int.Parse(Console.ReadLine());
+            int exhaustionFactorY = int.Parse(Console.ReadLine());
+
+            double tempPower = pokePowerN * 0.5;
+            int targetCounter = 0;
+
+            while (pokePowerN >= pokeDistanceM)
+            {
+                pokePowerN -= pokeDistanceM;
+                targetCounter++;
+
+                if (pokePowerN == tempPower && exhaustionFactorY!= 0)
+                {
+                    pokePowerN /= exhaustionFactorY;
+                }
+            }
+
+            Console.WriteLine(pokePowerN);
+            Console.WriteLine(targetCounter);
+        }
+    }
+}
