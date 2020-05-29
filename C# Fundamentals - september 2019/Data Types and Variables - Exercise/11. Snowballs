@@ -1,0 +1,54 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp23
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int numberOfSnowball = int.Parse(Console.ReadLine());
+            int snowballSnow = 0;
+            int snowballTime = 0;
+            int snowballQuality = 0;
+
+            int power = 0;
+            double snowballValue = 0;
+            double maxSnowballValue = double.MinValue; ;
+            int maxsnowballSbow = int.MinValue;
+            int maxsnowballTime = int.MinValue;
+            int maxsnowballQuality = int.MinValue;
+
+            for (int i = 1; i <= numberOfSnowball; i++)
+            {
+                snowballSnow = int.Parse(Console.ReadLine());
+                snowballTime = int.Parse(Console.ReadLine());
+                snowballQuality = int.Parse(Console.ReadLine());
+
+                power = snowballSnow / snowballTime;
+                snowballValue = Math.Pow(power, snowballQuality);
+                
+                if (snowballValue > maxSnowballValue)
+                {
+                    maxSnowballValue = snowballValue;
+                }
+                if (snowballSnow > maxsnowballSbow)
+                {
+                    maxsnowballSbow = snowballSnow;
+                }
+                if (snowballTime > maxsnowballTime)
+                {
+                    maxsnowballTime = snowballTime;
+                }
+                if (snowballQuality > maxsnowballQuality)
+                {
+                    maxsnowballQuality = snowballQuality;
+                }
+            }
+            Console.WriteLine($"{snowballSnow} : {snowballTime} = {maxSnowballValue} ({snowballQuality})");
+        }
+    }
+}
