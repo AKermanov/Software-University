@@ -1,0 +1,5 @@
+SELECT MountainRange, PeakName, Elevation FROM Peaks
+JOIN Mountains ON Peaks.MountainId = MountainS.Id
+--IZBIRAME OT KOQ PLANINA DA E VYRHA
+WHERE MountainRange ='Rila'
+ORDER BY Elevation DESC
