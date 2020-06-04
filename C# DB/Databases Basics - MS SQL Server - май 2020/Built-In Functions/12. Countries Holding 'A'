@@ -1,0 +1,4 @@
+SELECT CountryName AS [Country Name], ISOCode as [ISO Code]
+From Countries
+WHERE CountryName LIKE '%a%a%a%'
+ORDER BY ISOCode
