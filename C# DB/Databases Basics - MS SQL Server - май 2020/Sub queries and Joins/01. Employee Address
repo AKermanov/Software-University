@@ -1,0 +1,5 @@
+SELECT TOP (5) e.EmployeeID, e.JobTitle, e.AddressID, A.AddressText
+	FROM Employees AS e
+INNER JOIN Addresses AS a
+ON e.AddressID = a.AddressID
+ORDER BY E.AddressID ASC
