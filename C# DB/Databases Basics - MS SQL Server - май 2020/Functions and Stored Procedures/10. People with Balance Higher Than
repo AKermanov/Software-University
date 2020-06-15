@@ -1,0 +1,10 @@
+CREATE PROCEDURE usp_GetHoldersWithBalanceHigherThan (@minBalance DECIMAL (18,4))
+AS
+BEGIN
+	SELECT FirstName, LastName FROM Accounts AS a
+	INNER JOIN AccountHolders as ah
+	ON a.AccountHolderId = ah.Id
+	GROUP BY FirstName, LastName
+	HAVING SUM(Balance) > @minBalance
+	ORDER BY FirstName, LastName
+END
