@@ -1,0 +1,42 @@
+CREATE PROCEDURE usp_DeleteEmployeesFromDepartment (@departmentId INT) 
+AS
+BEGIN
+	/*returns eplois to be delited
+	SELECT EmployeeID FROM Employees
+	WHERE DepartmentID = @departmentId;
+	*/
+	--delite all records
+	DELETE FROM EmployeesProjects
+	WHERE EmployeeID IN
+	(	
+		SELECT EmployeeID FROM Employees
+		WHERE DepartmentID = @departmentId
+	)
+	--Set menager id to null
+	UPDATE Employees
+	SET ManagerID = NULL
+	WHERE ManagerID IN
+	(	
+		SELECT EmployeeID FROM Employees
+		WHERE DepartmentID = @departmentId
+	)
+	--alter column to be null
+	ALTER TABLE Departments
+	ALTER COLUMN ManagerID INT
+
+	--set menagerid to null
+	UPDATE Departments
+	SET ManagerID = NULL
+	WHERE ManagerID IN
+		(	
+		SELECT EmployeeID FROM Employees
+		WHERE DepartmentID = @departmentId
+		)
+	DELETE FROM Employees
+	WHERE DepartmentID = @departmentId
+
+	DELETE FROM Departments
+	WHERE DepartmentID = @departmentId
+	SELECT COUNT(*) FROM Employees
+	WHERE DepartmentID = @departmentId
+END
