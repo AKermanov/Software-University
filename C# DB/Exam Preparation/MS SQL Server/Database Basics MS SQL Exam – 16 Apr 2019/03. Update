@@ -1,0 +1,4 @@
+UPDATE Tickets
+SET Price *= 1.13
+WHERE FlightId IN (SELECT [ID] FROM Flights
+								WHERE Destination = 'Carlsbad')
