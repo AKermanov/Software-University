@@ -1,0 +1,9 @@
+SELECT CONCAT(p.FirstName, ' ', p.LastName) as [Full Name],
+f.Origin,
+f.Destination
+FROM Passengers AS p
+JOIN Tickets as t
+ON t.PassengerId = p.Id
+JOIN Flights AS f
+ON t.FlightId = f.Id
+ORDER BY [Full Name], f.Origin, f.Destination
