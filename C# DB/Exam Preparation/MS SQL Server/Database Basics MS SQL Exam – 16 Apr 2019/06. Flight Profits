@@ -1,0 +1,12 @@
+--select id po uslovie
+--in flights nqma nishot spomenato za ceni
+SELECT f.Id [FlightId], SUM (t.Price) as [Price] 
+FROM Flights AS f
+-- join with Tickets, poneje tam sa cenite
+--join = inner join
+JOIN Tickets AS t
+ON t.FlightId = f.Id
+-- grupirame po id na poleta
+GROUP BY f.Id
+ORDER BY [Price] DESC, [FlightId]
+--grupirame, kogato ni trqbva nqkakva agregirashta funkciq - sum, avg etc
