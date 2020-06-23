@@ -1,0 +1,5 @@
+SELECT CONCAT(s.FirstName, ' ', s.LastName) AS [Full Name] FROM Students AS s
+LEFT OUTER JOIN StudentsExams as se
+ON s.Id = se.StudentId
+WHERE ExamId IS NULL
+ORDER BY [Full Name] ASC
