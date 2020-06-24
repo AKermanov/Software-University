@@ -1,0 +1,9 @@
+SELECT TOP(10)  
+	FirstName AS [First Name], 
+	LastName AS [Last Name], 
+	ROUND(CAST(AVG(se.Grade) AS decimal(3,2)), 2) AS Grade 
+FROM Students AS s
+JOIN StudentsExams AS se
+ON s.Id = se.StudentId
+GROUP BY s.FirstName, s.LastName
+ORDER BY Grade DESC, [First Name] ASC,[Last Name] ASC
