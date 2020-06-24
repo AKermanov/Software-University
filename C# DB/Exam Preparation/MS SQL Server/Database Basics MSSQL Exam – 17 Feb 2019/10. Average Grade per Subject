@@ -1,0 +1,5 @@
+SELECT [Name], AVG(ss.Grade) as AverageGrade FROM Subjects AS s
+JOIN StudentsSubjects AS ss
+ON s.Id = ss.SubjectId
+GROUP BY [Name], s.Id
+ORDER BY s.Id
