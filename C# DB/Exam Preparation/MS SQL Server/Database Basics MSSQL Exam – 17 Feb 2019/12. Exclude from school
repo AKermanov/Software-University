@@ -1,0 +1,24 @@
+CREATE PROC usp_ExcludeFromSchool(@StudentId INT)
+AS
+--find the students for delite
+     DECLARE @studentSchoolID VARCHAR(30)=
+     (
+         SELECT s.Id
+         FROM dbo.Students s
+         WHERE s.Id = @StudentId
+     );
+--check if the student exist
+     IF(@studentSchoolID IS NULL)
+         BEGIN
+             RAISERROR('This school has no student with the provided id!', 16, 1);
+             RETURN;
+     END;
+--delite student, start from the table where no foreign key is pointing
+     DELETE FROM dbo.StudentsExams
+     WHERE dbo.StudentsExams.StudentId = @studentSchoolID;
+     DELETE FROM dbo.StudentsTeachers
+     WHERE dbo.StudentsTeachers.StudentId = @studentSchoolID;
+     DELETE FROM dbo.StudentsSubjects
+     WHERE dbo.StudentsSubjects.StudentId = @studentSchoolID;
+     DELETE FROM dbo.Students
+     WHERE dbo.Students.Id = @studentSchoolID;
