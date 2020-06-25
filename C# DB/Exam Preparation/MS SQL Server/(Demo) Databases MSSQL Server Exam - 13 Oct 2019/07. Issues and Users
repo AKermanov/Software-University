@@ -1,0 +1,4 @@
+SELECT i.Id, CONCAT(u.Username, ' : ', i.Title) FROM Issues as i
+JOIN Users as u
+ON i.AssigneeId = u.Id
+ORDER BY i.Id DESC, i.AssigneeId ASC 
