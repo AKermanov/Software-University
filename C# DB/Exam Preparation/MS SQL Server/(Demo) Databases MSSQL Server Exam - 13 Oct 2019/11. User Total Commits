@@ -1,0 +1,13 @@
+CREATE FUNCTION udf_UserTotalCommits(@username VARCHAR(30))
+RETURNS INT
+AS
+BEGIN
+
+	DECLARE @userId INT = (SELECT Id FROM Users WHERE Username LIKE @username);
+
+   DECLARE @totCount INT = (SELECT COUNT(ContributorId) FROM Commits WHERE ContributorId = @userId);
+
+   RETURN @totCount;
+END
+
+GO
