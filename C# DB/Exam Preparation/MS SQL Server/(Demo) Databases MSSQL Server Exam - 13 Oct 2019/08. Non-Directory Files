@@ -1,0 +1,8 @@
+WITH CTE_NewTable(Id, Name, Size) As
+(
+	SELECT f.Id, f.Name, f.Size
+	FROM Files As f
+	WHERE Id IN (SELECT ParentId FROM Files)
+)
+SELECT Id, Name, CONCAT(Size, 'KB') AS Size FROM Files
+WHERE Id NOT IN (SELECT Id FROM CTE_NewTable)
