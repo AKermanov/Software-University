@@ -1,0 +1,7 @@
+CREATE PROCEDURE ​usp_FindByExtension(@extension VARCHAR(10))
+AS
+BEGIN
+	SELECT Id, Name, CONCAT(Size, 'KB') FROM Files
+	WHERE Name LIKE '%' + @extension + '%'
+    ORDER BY Id, Name, Size DESC
+END
