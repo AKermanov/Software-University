@@ -1,0 +1,25 @@
+CREATE PROC usp_AssignEmployeeToReport(@EmployeeId INT, @ReportId INT) 
+AS
+BEGIN
+--get employee department
+	DECLARE @employeeDepartmentId INT = (SELECT DepartmentId 
+										   FROM Employees 
+										  WHERE Id = @EmployeeId)
+--get report's catogory department
+	DECLARE @reportDepartmentId INT = (SELECT d.Id 
+											 FROM Reports AS r 
+											 JOIN Categories AS c ON r.CategoryId = c.Id 
+											 JOIN Departments AS d ON c.DepartmentId = d.Id 
+											WHERE r.id = @ReportId) 
+--check are they equel
+	IF(@employeeDepartmentId <> @reportDepartmentId)
+	BEGIN
+		RAISERROR('Employee doesn''t belong to the appropriate department!', 16, 1)
+		RETURN
+	END
+
+--assign employees to the report
+	UPDATE Reports
+	SET EmployeeId = @employeeDepartmentId
+	WHERE Id = @ReportId
+END
