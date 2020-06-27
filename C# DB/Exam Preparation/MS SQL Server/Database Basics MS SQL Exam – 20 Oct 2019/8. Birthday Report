@@ -1,0 +1,7 @@
+SELECT u.Username, c.[Name] AS CategoryName FROM Users AS u
+LEFT OUTER JOIN Reports AS r
+ON u.Id = r.UserId
+JOIN Categories AS c
+ON r.CategoryId = c.Id
+WHERE FORMAT(r.OpenDate, 'dd-MM') = FORMAT(u.Birthdate, 'dd-MM')
+ORDER BY u.Username ASC, CategoryName ASC
