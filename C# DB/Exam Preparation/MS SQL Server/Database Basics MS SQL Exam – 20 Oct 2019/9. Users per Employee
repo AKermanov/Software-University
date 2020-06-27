@@ -1,0 +1,5 @@
+SELECT CONCAT(e.FirstName, ' ', e.LastName) as FullName, COUNT(u.Id) AS UsersCount FROM Employees AS e
+LEFT OUTER JOIN Reports AS r ON r.EmployeeId = e.Id 
+LEFT OUTER JOIN Users AS u ON r.UserId = u.Id
+GROUP BY e.FirstName, e.LastName
+ORDER BY UsersCount DESC, FullName
