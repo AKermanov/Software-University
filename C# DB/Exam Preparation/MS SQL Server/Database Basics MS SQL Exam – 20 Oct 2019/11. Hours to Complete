@@ -1,0 +1,10 @@
+CREATE FUNCTION udf_HoursToComplete(@StartDate DATETIME, @EndDate DATETIME)
+RETURNS VARCHAR(50)
+	AS
+BEGIN
+	IF(@StartDate IS NOT NULL AND @EndDate IS NOT NULL)
+	BEGIN
+		RETURN DATEDIFF(hh, @StartDate,@EndDate)
+	END
+	RETURN 0;
+END
