@@ -1,0 +1,8 @@
+SELECT TOP (1)
+  o.Id,
+  SUM(i.Price * oi.Quantity) AS [TotalPrice]
+FROM Orders As o
+  JOIN OrderItems AS oi ON oi.OrderId = o.Id
+  JOIN Items As i ON i.Id = oi.ItemId
+GROUP BY o.Id
+ORDER BY TotalPrice DESC
