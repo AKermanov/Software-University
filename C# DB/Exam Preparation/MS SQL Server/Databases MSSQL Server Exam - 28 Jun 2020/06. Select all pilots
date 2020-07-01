@@ -1,0 +1,4 @@
+SELECT c.Id as Id, CONCAT(c.FirstName, ' ', c.LastName) as full_name FROM TravelCards as tc
+JOIN Colonists as c ON tc.ColonistId = c.Id
+WHERE tc.JobDuringJourney LIKE 'Pilot'
+ORDER BY c.Id ASC
