@@ -1,0 +1,4 @@
+SELECT COUNT(ColonistId) as [count] FROM TravelCards as tc
+JOIN Journeys as j ON tc.JourneyId = j.Id
+WHERE j.[Purpose] = 'Technical' 
+GROUP BY j.Purpose
