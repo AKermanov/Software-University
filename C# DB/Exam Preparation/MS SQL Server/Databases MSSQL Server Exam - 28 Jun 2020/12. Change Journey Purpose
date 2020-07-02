@@ -1,0 +1,22 @@
+CREATE OR ALTER PROCEDURE usp_ChangeJourneyPurpose(@JourneyId INT, @NewPurpose VARCHAR(11))
+AS
+BEGIN
+	DECLARE @journey INT = (SELECT Id FROM Journeys WHERE Id = @JourneyId);
+	DECLARE @pourpose VARCHAR(11) = (SELECT Purpose FROM Journeys WHERE Purpose = @NewPurpose AND Id = @JourneyId)
+
+	IF(@journey IS NULL)
+	BEGIN
+	RAISERROR('The journey does not exist!', 16, 1);
+	RETURN;
+	END
+
+	IF(@pourpose = @NewPurpose)
+	BEGIN
+	RAISERROR('You cannot change the purpose!', 16, 2);
+	RETURN;
+	END
+
+	UPDATE  Journeys
+	SET Purpose = @NewPurpose
+	WHERE Id = @JourneyId
+END
