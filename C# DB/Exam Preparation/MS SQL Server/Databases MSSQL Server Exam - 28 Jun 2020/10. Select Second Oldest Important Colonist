@@ -1,0 +1,14 @@
+WITH [Rank] as
+(SELECT 
+JobDuringJourney,
+CONCAT(FirstName, ' ', LastName) as FullName, 
+RANK() OVER (PARTITION BY tc.JobDuringJourney ORDER BY c.BirthDate ) AS [JobRank]
+FROM TravelCards as tc
+JOIN Colonists as c ON tc.ColonistId = c.Id
+)
+SELECT 
+JobDuringJourney,
+FullName, 
+[JobRank]
+FROM [Rank]
+WHERE [JobRank] = 2
