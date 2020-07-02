@@ -1,0 +1,6 @@
+SELECT s.[Name] as [Name], s.Manufacturer as Manufacturer FROM TravelCards as tc
+JOIN Journeys as j ON tc.JourneyId = j.Id
+JOIN Spaceships as s ON j.SpaceshipId = s.Id
+JOIN Colonists as c ON tc.ColonistId = c.Id
+WHERE DATEDIFF(YEAR, c.BirthDate, '2019-01-01') < 30 AND tc.JobDuringJourney = 'Pilot'
+ORDER BY s.[Name] ASC
