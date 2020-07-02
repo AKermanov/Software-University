@@ -1,0 +1,14 @@
+CREATE FUNCTION udf_GetColonistsCount(@PlanetName VARCHAR (30)) 
+RETURNS INT
+AS
+BEGIN
+
+   DECLARE @totCount INT = (SELECT COUNT(p.Id) FROM TravelCards as tc
+JOIN Journeys  as j ON tc.JourneyId = j.Id
+JOIN Spaceports as s ON j.DestinationSpaceportId = s.Id
+JOIN Planets as p ON p.Id = s.PlanetId
+WHERE p.[Name] = @PlanetName);
+
+
+  RETURN @totCount;
+END
