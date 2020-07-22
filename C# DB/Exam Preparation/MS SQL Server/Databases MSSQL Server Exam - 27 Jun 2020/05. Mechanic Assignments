@@ -1,0 +1,6 @@
+SELECT CONCAT (m.FirstName, ' ', m.LastName) as Mechanic,
+j.[Status] as [Status],
+j.IssueDate as IssueDate
+FROM Jobs as j
+JOIN Mechanics as m ON j.MechanicId = m.MechanicId
+ORDER BY m.MechanicId ASC, IssueDate ASC, j.JobId ASC
