@@ -1,0 +1,8 @@
+SELECT j.JobId as JobId,
+SUM(p.Price) as Total
+From PartsNeeded as pn
+JOIN Jobs as j ON pn.JobId = j.JobId
+JOIN Parts as p ON p.PartId = pn.PartId
+WHERE j.Status = 'Finished'
+GROUP BY j.JobId
+ORDER BY Total DESC, j.JobId ASC
