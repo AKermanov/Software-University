@@ -1,0 +1,4 @@
+SELECT CONCAT(FirstName, ' ', LastName) FROM Jobs as j
+LEFT OUTER JOIN Mechanics as m ON j.MechanicId = m.MechanicId
+WHERE j.IssueDate IS NULL OR j.FinishDate IS NOT NULL
+ORDER BY m.MechanicId ASC
