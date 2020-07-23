@@ -1,0 +1,6 @@
+SELECT CONCAT(FirstName, ' ', LastName) AS Mechanic,
+AVG(DATEDIFF(DAY, j.IssueDate, j.FinishDate)) as [Average Days]
+FROM Jobs as j
+JOIN Mechanics as m ON j.MechanicId = m.MechanicId
+GROUP BY m.FirstName, m.LastName, m.MechanicId
+ORDER BY m.MechanicId ASC
