@@ -1,0 +1,12 @@
+C:\Users\Aleksandar\Dropbox\Programmer journey\C#\C# DB\Николай Костов\Entity Framework Core\C# DB Advanced Exam - 07 Apr 2019\Solution\Cinema\bin\Debug\netcoreapp2.1\Cinema.deps.json
+C:\Users\Aleksandar\Dropbox\Programmer journey\C#\C# DB\Николай Костов\Entity Framework Core\C# DB Advanced Exam - 07 Apr 2019\Solution\Cinema\bin\Debug\netcoreapp2.1\Cinema.runtimeconfig.json
+C:\Users\Aleksandar\Dropbox\Programmer journey\C#\C# DB\Николай Костов\Entity Framework Core\C# DB Advanced Exam - 07 Apr 2019\Solution\Cinema\bin\Debug\netcoreapp2.1\Cinema.runtimeconfig.dev.json
+C:\Users\Aleksandar\Dropbox\Programmer journey\C#\C# DB\Николай Костов\Entity Framework Core\C# DB Advanced Exam - 07 Apr 2019\Solution\Cinema\bin\Debug\netcoreapp2.1\Cinema.dll
+C:\Users\Aleksandar\Dropbox\Programmer journey\C#\C# DB\Николай Костов\Entity Framework Core\C# DB Advanced Exam - 07 Apr 2019\Solution\Cinema\bin\Debug\netcoreapp2.1\Cinema.pdb
+C:\Users\Aleksandar\Dropbox\Programmer journey\C#\C# DB\Николай Костов\Entity Framework Core\C# DB Advanced Exam - 07 Apr 2019\Solution\Cinema\obj\Debug\netcoreapp2.1\Cinema.csprojAssemblyReference.cache
+C:\Users\Aleksandar\Dropbox\Programmer journey\C#\C# DB\Николай Костов\Entity Framework Core\C# DB Advanced Exam - 07 Apr 2019\Solution\Cinema\obj\Debug\netcoreapp2.1\Cinema.AssemblyInfoInputs.cache
+C:\Users\Aleksandar\Dropbox\Programmer journey\C#\C# DB\Николай Костов\Entity Framework Core\C# DB Advanced Exam - 07 Apr 2019\Solution\Cinema\obj\Debug\netcoreapp2.1\Cinema.AssemblyInfo.cs
+C:\Users\Aleksandar\Dropbox\Programmer journey\C#\C# DB\Николай Костов\Entity Framework Core\C# DB Advanced Exam - 07 Apr 2019\Solution\Cinema\obj\Debug\netcoreapp2.1\Cinema.csproj.CoreCompileInputs.cache
+C:\Users\Aleksandar\Dropbox\Programmer journey\C#\C# DB\Николай Костов\Entity Framework Core\C# DB Advanced Exam - 07 Apr 2019\Solution\Cinema\obj\Debug\netcoreapp2.1\Cinema.dll
+C:\Users\Aleksandar\Dropbox\Programmer journey\C#\C# DB\Николай Костов\Entity Framework Core\C# DB Advanced Exam - 07 Apr 2019\Solution\Cinema\obj\Debug\netcoreapp2.1\Cinema.pdb
+C:\Users\Aleksandar\Dropbox\Programmer journey\C#\C# DB\Николай Костов\Entity Framework Core\C# DB Advanced Exam - 07 Apr 2019\Solution\Cinema\obj\Debug\netcoreapp2.1\Cinema.genruntimeconfig.cache

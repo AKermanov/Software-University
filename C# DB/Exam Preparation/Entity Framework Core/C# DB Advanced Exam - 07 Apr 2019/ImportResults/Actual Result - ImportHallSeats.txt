@@ -1,0 +1,12 @@
+Successfully imported Methocarbamol(3D) with 52 seats!
+Successfully imported Glycopyrrolate(4Dx/3D) with 36 seats!
+Successfully imported Corn Grass(4Dx/3D) with 40 seats!
+Successfully imported Aminophylline(normal) with 31 seats!
+Successfully imported Aspergillus flavus(normal) with 34 seats!
+Successfully imported Pain Relief Plus(4Dx/3D) with 24 seats!
+Invalid data!
+Successfully imported Vitalizer(normal) with 48 seats!
+Invalid data!
+Successfully imported CVS SPF 8(4Dx/3D) with 22 seats!
+Successfully imported CYZONE(normal) with 22 seats!
+Invalid data!
