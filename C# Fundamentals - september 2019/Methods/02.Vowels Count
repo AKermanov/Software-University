@@ -1,0 +1,86 @@
+using System;
+
+namespace _02.VowelsCount
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+            PrintVowols(input);
+
+            /*
+            int counter = 0;
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                string currentChar = input[i].ToString().ToLower();
+
+                if (currentChar == "a")
+                {
+                    counter++;
+                }
+                else if (currentChar == "e")
+                {
+                    counter++;
+                }
+                else if (currentChar == "i")
+                {
+                    counter++;
+                }
+                else if (currentChar == "o")
+                {
+                    counter++;
+                }
+                else if (currentChar == "u")
+                {
+                    counter++;
+                }
+                else if (currentChar == "y")
+                {
+                    counter++;
+                }
+            }
+
+            Console.WriteLine(counter);
+            */
+        }
+
+        public static void PrintVowols(string input)
+        {
+            int counter = 0;
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                string currentChar = input[i].ToString().ToLower();
+
+                if (currentChar == "a")
+                {
+                    counter++;
+                }
+                else if (currentChar == "e")
+                {
+                    counter++;
+                }
+                else if (currentChar == "i")
+                {
+                    counter++;
+                }
+                else if (currentChar == "o")
+                {
+                    counter++;
+                }
+                else if (currentChar == "u")
+                {
+                    counter++;
+                }
+                else if (currentChar == "y")
+                {
+                    counter++;
+                }
+            }
+
+            Console.WriteLine(counter);
+        }
+    }
+}
