@@ -1,0 +1,31 @@
+using System;
+
+namespace MethodsExercise
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int firstNumber = int.Parse(Console.ReadLine());
+            int secondNumber = int.Parse(Console.ReadLine());
+            int thurdNumber = int.Parse(Console.ReadLine());
+
+            if (firstNumber < secondNumber && firstNumber < thurdNumber)
+            {
+                Console.WriteLine(firstNumber);
+            }
+            else if (secondNumber < firstNumber && secondNumber < thurdNumber)
+            {
+                Console.WriteLine(secondNumber);
+            }
+            else if (thurdNumber < firstNumber && thurdNumber < secondNumber)
+            {
+                Console.WriteLine(thurdNumber);
+            }
+            else
+            {
+                Console.WriteLine(firstNumber);
+            }
+        }
+    }
+}
