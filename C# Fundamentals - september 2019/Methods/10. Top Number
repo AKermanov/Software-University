@@ -1,0 +1,41 @@
+using System;
+
+namespace _10.TopNumber
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int number = int.Parse(Console.ReadLine());
+
+            PrintTopNumber(number);
+        }
+
+        private static void PrintTopNumber(int number)
+        {
+            for (int i = 0; i <= number; i++)
+            {
+                string currentNumber = i.ToString();
+                bool isOddDIgit = false;
+                int sumOfDIgits = 0;
+
+                foreach (var curr in currentNumber)
+                {
+                    int parseNumber = (int)curr;
+
+                    if (parseNumber % 2 == 1)
+                    {
+                        isOddDIgit = true;
+                    }
+
+                    sumOfDIgits += parseNumber;
+                }
+
+                if (sumOfDIgits % 8 == 0 && isOddDIgit)
+                {
+                    Console.WriteLine(i);
+                }
+            }
+        }
+    }
+}
