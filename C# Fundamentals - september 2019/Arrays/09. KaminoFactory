@@ -1,0 +1,64 @@
+using System;
+
+namespace _09._KaminoFactory
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int size = int.Parse(Console.ReadLine());
+
+            
+            string input = string.Empty;
+            int bestCount = 0;
+            int counter = 0;
+            int bestBeginIndex = 0;
+            int bestSum = 0;
+            string bestSequnce = "";
+            int bestCOunter = 0;
+
+            while ((input = Console.ReadLine()) != "Clone them!")
+            {
+                string sequence = input.Replace("!", "");
+                
+                string[] dnaParts = sequence.Split("0", 
+                    StringSplitOptions.RemoveEmptyEntries);
+                //111
+
+                int count = 0;
+                int sum = 0;
+                string bestSubSeqence = "";
+                counter++;
+
+                foreach (string dnaPart in dnaParts)
+                {
+                    if (dnaPart.Length > count)
+                    {
+                        count = dnaPart.Length;
+                        bestSubSeqence = dnaPart;
+                    }
+                    sum += dnaPart.Length;
+                }
+
+                int beginIndex = sequence.IndexOf(bestSubSeqence);
+
+                if (count> bestCount ||
+                    (count == bestCount && beginIndex < bestBeginIndex)||
+                    (count == bestCount && beginIndex == bestBeginIndex && sum > bestSum)||
+                    counter == 1)
+                {
+                    bestCount = count;
+                    bestSequnce = sequence;
+                    bestBeginIndex = beginIndex;
+                    bestSum = sum;
+                    bestCOunter = counter;
+                }
+            }
+
+            char[] result = bestSequnce.ToCharArray();
+
+            Console.WriteLine($"Best DNA sample {bestCOunter} with sum: {bestSum}.");
+            Console.WriteLine($"{string.Join(" ", result)} ");
+        }
+    }
+}
