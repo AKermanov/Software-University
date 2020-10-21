@@ -1,0 +1,75 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ConsoleApp4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var input = Console.ReadLine()
+                .Split()
+                .ToList();
+
+            string command = Console.ReadLine();
+
+            while (command != "3:1")
+            {
+                string[] cmdArgs = command.Split();
+
+                string firstCommand = cmdArgs[0];
+              
+                int startIndex = int.Parse(cmdArgs[1]);
+                int endIndex = int.Parse(cmdArgs[2]);
+                string wordToConcat = string.Empty;
+
+                if (endIndex > input.Count - 1 || endIndex < 0)
+                {
+                    endIndex = input.Count - 1;
+                }
+
+                if (startIndex < 0 || startIndex > input.Count)
+                {
+                    startIndex = 0;
+                }
+
+                if (firstCommand == "merge")
+                {
+                    for (int i = startIndex; i <= endIndex; i++)
+                    {
+                        wordToConcat += input[i];
+                    }
+                    input.RemoveRange(startIndex, endIndex - startIndex + 1);
+                    input.Insert(startIndex, wordToConcat);
+
+                }
+                else if (firstCommand == "divide")
+                {
+                    List<string> divided = new List<string>();
+                    int divide = int.Parse(cmdArgs[2]);
+                    string word = input[startIndex];
+                    input.RemoveAt(startIndex);
+                    int parts = word.Length / divide;
+
+                    for (int i = 0; i < divide; i++)
+                    {
+                        if (i == divide - 1)
+                        {
+                            divided.Add(word.Substring(i * parts));
+                        }
+                        else
+                        {
+                            divided.Add(word.Substring(i * parts, parts));
+                        }
+                    }
+                    input.InsertRange(startIndex, divided);
+                }
+
+                command = Console.ReadLine();
+            }
+
+            Console.WriteLine(string.Join(" ", input));
+        }
+    }
+}
