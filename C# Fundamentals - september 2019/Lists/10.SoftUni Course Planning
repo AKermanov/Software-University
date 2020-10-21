@@ -1,0 +1,121 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace _10._SoftUniCoursePlanning
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<string> lessons = Console.ReadLine()
+               .Split(", ", StringSplitOptions.RemoveEmptyEntries)
+               .ToList();
+
+            var command = Console.ReadLine();
+
+            while (command != "course start")
+            {
+                string[] cmdArgs = command.Split(':', StringSplitOptions.RemoveEmptyEntries).ToArray();
+
+                string firstCommand = cmdArgs[0];
+                string lessonTitle = cmdArgs[1];
+
+                if (firstCommand == "Add")
+                {
+                    if (!lessons.Contains(lessonTitle))
+                    {
+                        lessons.Add(lessonTitle);
+                    }
+                }
+
+                else if (firstCommand == "Insert")
+                {
+                    int index = int.Parse(cmdArgs[2]);
+
+                    if (!lessons.Contains(lessonTitle))
+                    {
+                        //check index if nessesry
+                        //index < lessons.Count && index >= 0) 
+                        lessons.Insert(index, lessonTitle);
+                    }
+                }
+
+                else if (firstCommand == "Remove")
+                {
+                    lessons.Remove(lessonTitle);
+                    string exercise = $"{lessonTitle}-Exercise";
+
+                    if (lessons.Contains(exercise))
+                    {
+                        lessons.Remove(exercise);
+                    }
+                }
+
+                else if (firstCommand == "Swap")
+                {
+                    string secondLessonTitle = cmdArgs[2];
+
+                    int indexOfFirstLesson = lessons.IndexOf(lessonTitle);
+                    int indexOfSecondLesson = lessons.IndexOf(secondLessonTitle);
+
+                    // bool isValidIndexFirstLesson = index1 + 1 < lessons.Count;
+                    //bool isValidFirstExercise = lessons[index1 + 1] == $"{lessonTitle}-Exercise";
+
+                    if (indexOfFirstLesson != -1 && indexOfSecondLesson != -1)
+                    {
+                        lessons[indexOfFirstLesson] = secondLessonTitle;
+                        lessons[indexOfSecondLesson] = lessonTitle;
+
+                        //swap exercises as well
+                        string firstLessonExercise = $"{lessonTitle}-Exercise";
+                        int indexFirstExercise = indexOfFirstLesson + 1;
+
+                        if (indexFirstExercise < lessons.Count && lessons[indexFirstExercise] == firstLessonExercise)
+                        {
+                            lessons.RemoveAt(indexFirstExercise);
+                            indexOfFirstLesson = lessons.IndexOf(lessonTitle);
+                            lessons.Insert(indexOfFirstLesson, firstLessonExercise);
+                        }
+
+                        string secondLessonExercise = $"{secondLessonTitle}-Exercise";
+                        int indexSecondExercise = indexOfSecondLesson + 1;
+
+                        if (indexSecondExercise < lessons.Count && lessons[indexSecondExercise] == secondLessonExercise)
+                        {
+                            lessons.RemoveAt(indexOfSecondLesson + 1);
+                            indexOfSecondLesson = lessons.IndexOf(secondLessonTitle);
+                            lessons.Insert(indexOfSecondLesson + 1, secondLessonExercise);
+                        }
+
+                    }
+                }
+                else if (firstCommand == "Exercise")
+                {
+                    int index = lessons.IndexOf(lessonTitle);
+                    string exercise = $"{lessonTitle}-Exercise";
+
+                    bool isThereAreLesson = lessons.Contains(lessonTitle);
+                    bool isThereAreExercise = lessons.Contains($"{lessonTitle}-Exercise");
+
+                    if (isThereAreLesson && !isThereAreExercise)
+                    {
+                        lessons.Insert(index + 1, exercise);
+                    }
+                    else if (!isThereAreLesson)
+                    {
+                        lessons.Add(lessonTitle);
+                        lessons.Add(exercise);
+                    }
+                }
+
+                command = Console.ReadLine();
+            }
+
+            for (int i = 0; i < lessons.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}.{lessons[i]}");
+            }
+        }
+    }
+}
