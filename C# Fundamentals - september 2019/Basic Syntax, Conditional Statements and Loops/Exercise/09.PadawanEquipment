@@ -1,0 +1,40 @@
+using System;
+
+namespace ConsoleApp3
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double budget = double.Parse(Console.ReadLine());
+
+            int numberOfStudents = int.Parse(Console.ReadLine());
+            double lightsabersPrice = double.Parse(Console.ReadLine());
+            double robePrice = double.Parse(Console.ReadLine());
+            double beltPrice = double.Parse(Console.ReadLine());
+
+            double lightsabersCount = numberOfStudents * 1.10;
+            int freeBelts = numberOfStudents / 6;
+            int totalBelts = numberOfStudents - freeBelts;
+
+            double moneyForSaber = lightsabersPrice * Math.Ceiling(lightsabersCount);
+            double moneyForBelts = beltPrice * totalBelts;
+            double moneyForRobe = robePrice * numberOfStudents;
+
+            double totalMoney = moneyForSaber + moneyForBelts + moneyForRobe;
+
+            string result = string.Empty;
+
+            if (budget >= totalMoney)
+            {
+                result = $"The money is enough - it would cost {totalMoney:f2}lv.";
+            }
+            else
+            {
+                result = $"Ivan Cho will need {totalMoney - budget:f2}lv more.";
+            }
+
+            Console.WriteLine(result);
+        }
+    }
+}
