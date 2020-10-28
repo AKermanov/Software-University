@@ -1,0 +1,61 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace _02.ShoppingListExam
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<string> initialList = Console
+                 .ReadLine()
+                 .Split('!')
+                 .ToList();
+
+            string command;
+            while ((command = Console.ReadLine()) != "Go Shopping!")
+            {
+                List<string> cmndArgs = command
+                    .Split()
+                    .ToList();
+                string cmnd = cmndArgs[0];
+                string item = cmndArgs[1];
+                if (cmnd == "Urgent")
+                {
+                    if (initialList.Contains(item) == false)
+                    {
+                        initialList.Insert(0, item);
+                    }
+                }
+                else if (cmnd == "Unnecessary")
+                {
+                    if (initialList.Contains(item) == true)
+                    {
+                        initialList.Remove(item);
+                    }
+                }
+                else if (cmnd == "Correct")
+                {
+                    string newItem = cmndArgs[2];
+                    if (initialList.Contains(item) == true)
+                    {
+                        int index = initialList.FindIndex(x => x == item);
+                        initialList[index] = newItem;
+                    }
+                }
+                else if (cmnd == "Rearrange")
+                {
+                    if (initialList.Contains(item) == true)
+                    {
+                        int index = initialList.FindIndex(x => x == item);
+                        string itemFromList = initialList[index];
+                        initialList.RemoveAt(index);
+                        initialList.Add(itemFromList);
+                    }
+                }
+            }
+            Console.WriteLine(string.Join(", ", initialList));
+        }
+    }
+}
