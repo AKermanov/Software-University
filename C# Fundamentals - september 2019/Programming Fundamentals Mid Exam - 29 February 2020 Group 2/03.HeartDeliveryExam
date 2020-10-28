@@ -1,0 +1,80 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace _03.HeartDeliveryExam
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            List<int> list = Console.ReadLine().Split('@').Select(int.Parse).ToList();
+
+            int jumpedPosition = 0;
+            int realPosition = 0;
+            string cmd = Console.ReadLine();
+            while (cmd != "Love!")
+            {
+                string[] cmdArgs = cmd.Split();
+                string action = cmdArgs[0];
+                int count = int.Parse(cmdArgs[1]);
+                if (action == "Jump")
+                {
+                    jumpedPosition += count;
+                    realPosition += count;
+
+                    if (jumpedPosition >= 0 && jumpedPosition < list.Count)
+                    {
+
+                        list[jumpedPosition] -= 2;
+                    }
+                    else
+                    {
+                        jumpedPosition = 0;
+                        list[jumpedPosition] -= 2;
+                        realPosition = 0;
+                    }
+
+                    if (list[jumpedPosition] == 0)
+                    {
+                        Console.WriteLine($"Place {jumpedPosition} has Valentine's day.");
+                    }
+                    else if (list[jumpedPosition] < 0)
+                    {
+                        Console.WriteLine($"Place {jumpedPosition} already had Valentine's day.");
+                    }
+                }
+
+
+                cmd = Console.ReadLine();
+            }
+
+            Console.WriteLine($"Cupid's last position was {jumpedPosition}.");
+
+            int successCount = 0;
+            int failcount = 0;
+
+            foreach (var house in list)
+            {
+                if (house > 0)
+                {
+                    failcount++;
+                }
+                else if (house <= 0)
+                {
+                    successCount++;
+                }
+            }
+
+            if (failcount == 0)
+            {
+                Console.WriteLine($"Mission was successful.");
+            }
+            else
+            {
+                Console.WriteLine($"Cupid has failed {failcount} places.");
+            }
+        }
+    }
+}
