@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+
+
+namespace ConsoleApp23
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            char[] input = Console.ReadLine().ToCharArray();
+            Dictionary<char, int> occurences = new Dictionary<char, int>();
+
+            foreach(char letter in input)
+            {
+                if (letter != ' ')
+                {
+                    if (!occurences.ContainsKey(letter)) //проверяваме дали го няма ключа и ако го няма го добавяме с обърната логика
+                    {                                    //това е синтаксиса на добавянето на елемент в речник под ключ.
+                        occurences.Add(letter, 0);
+                    }
+                    occurences[letter]++;
+                }
+               
+            }
+
+            foreach (var c in occurences)
+            {
+                Console.WriteLine($"{c.Key} -> {c.Value}");
+            }
+        }
+    }
+}
