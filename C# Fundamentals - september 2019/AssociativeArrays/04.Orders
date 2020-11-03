@@ -1,0 +1,46 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+
+
+namespace ConsoleApp56
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Dictionary<string, List<double>> products = new Dictionary<string, List<double>>();
+            
+            string command = null;
+            while ((command =Console.ReadLine()) != "buy")
+            {
+                string[] ags = command.Split().ToArray();
+                string productname = ags[0];
+                double productPrice = double.Parse(ags[1]);
+                double quantity = double.Parse(ags[2]);
+
+
+
+                if (!products.ContainsKey(productname))
+                {
+                    products.Add(productname, new List<double> {productPrice, quantity});
+                  
+                }
+                else
+                {
+                    products[productname][0] = productPrice;
+                    products[productname][1] += quantity;
+                }
+            }
+
+
+            foreach (var item in products)
+            {
+                Console.WriteLine($"{item.Key} -> {(item.Value[0] * item.Value[1]):f2}");
+            }
+        }
+    }
+}
