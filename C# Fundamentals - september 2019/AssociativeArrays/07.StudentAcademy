@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+
+
+namespace ConsoleApp56
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Dictionary<string, List<double>> studentsList = new Dictionary<string, List<double>>();
+            int n = int.Parse(Console.ReadLine());
+            string student = string.Empty;
+            double grade = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                student = Console.ReadLine();
+                grade = double.Parse(Console.ReadLine());
+
+                if (!studentsList.ContainsKey(student))
+                {
+                    studentsList.Add(student, new List<double>());
+
+                }
+                studentsList[student].Add(grade);
+               
+
+            }
+
+            
+            foreach (var item in studentsList.OrderByDescending(x=>x.Value.Average()))
+            {
+                
+                if (item.Value.Average() >= 4.5)
+                {
+                    Console.WriteLine($"{item.Key} -> {item.Value.Average():f2}");
+                }
+
+            }
+        }
+    }
+}
