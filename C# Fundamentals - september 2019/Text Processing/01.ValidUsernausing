@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+using System.Text.RegularExpressions;
+
+
+namespace ConsoleApp58
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+            string[] splited = input.Split(", ");
+
+            for (int i = 0; i < splited.Length; i++)
+            {
+                string current = splited[i];
+                bool valid = current.All(c => char.IsLetterOrDigit(c));
+
+                if (current.Length >= 3 && current.Length <= 16)
+
+                {
+                    if (current.Contains("-") || current.Contains("_") || valid)
+                    {
+                        Console.WriteLine(current);
+                    }
+                   
+                }
+            }
+        }
+    }
+}
