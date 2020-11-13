@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+using System.Text.RegularExpressions;
+
+
+namespace ConsoleApp59
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var symbol in input)
+            {
+                char encryptedSYmbol = (char)(symbol + 3);
+                sb.Append(encryptedSYmbol);
+            }
+
+            Console.WriteLine(sb);
+        }
+    }
+}
