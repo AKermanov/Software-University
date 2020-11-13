@@ -1,0 +1,29 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+using System.Text.RegularExpressions;
+
+
+namespace ConsoleApp58
+{
+    class Program
+    {
+
+        static void Main()
+        {
+            string[] input = Console.ReadLine().Split(@"\");
+            string fileName = input[input.Length - 1];
+            string[] lastString = fileName.Split(".");
+            string name = lastString[0];
+            string extention = lastString[1];
+
+
+            Console.WriteLine($"File name: {name}");
+            Console.WriteLine($"File extension: {extention}");
+        }
+
+    }
+}
