@@ -1,0 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+using System.Text.RegularExpressions;
+
+
+namespace ConsoleApp59
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+            char[] inputInChar =input.ToCharArray();
+            StringBuilder result = new StringBuilder();
+            
+            for (int i = 0; i < inputInChar.Length -1; i++)
+            {
+                if (inputInChar[i] != inputInChar[i+1])
+                {
+                    char current = inputInChar[i];
+                    result.Append(current);
+                }
+            }
+            char lastSymbol = inputInChar[inputInChar.Length-1];
+            result.Append(lastSymbol);
+            Console.WriteLine(result);
+        }
+    }
+}
