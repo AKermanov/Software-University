@@ -1,0 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+using System.Text.RegularExpressions;
+
+
+namespace ConsoleApp58
+{
+    class Program
+    {
+
+        static void Main()
+        {
+            BigInteger input = BigInteger.Parse(Console.ReadLine());
+            int secondNumber = int.Parse(Console.ReadLine());
+
+            BigInteger tot = input * secondNumber;
+
+            Console.WriteLine(tot);
+            
+        }
+
+    }
+}
