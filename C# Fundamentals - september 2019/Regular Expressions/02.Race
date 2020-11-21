@@ -1,0 +1,69 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+using System.Text.RegularExpressions;
+
+
+namespace ConsoleApp64
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string namePattern = @"[A-Za-z]+";
+            string digitPattern = @"\d";
+            Regex nameRegex = new Regex(namePattern);
+            Regex digitRegec = new Regex(digitPattern);
+            List<string> participants = Regex.Split(Console.ReadLine(), @",\s").ToList();
+            string input = Console.ReadLine();
+            Dictionary<string, int> participantsDict = new Dictionary<string, int>();
+            while (input != "end of race")
+            {
+                MatchCollection charsCollenction = nameRegex.Matches(input);
+                string name = string.Join("", charsCollenction);
+
+                if (participants.Contains(name))
+                {
+                    MatchCollection digitCollection = digitRegec.Matches(input);
+                    int distance = 0;
+                    foreach (Match match in digitCollection)
+                    {
+                        int digit = int.Parse(match.Value);
+                        distance += digit;
+                    }
+                    if (!participantsDict.ContainsKey(name))
+                    {
+                        participantsDict.Add(name, 0);
+                    }
+                    participantsDict[name] += distance;
+
+                }
+
+                input = Console.ReadLine();
+            }
+
+            participantsDict = participantsDict.OrderByDescending(p => p.Value).ToDictionary(x=>x.Key, y=>y.Value); //тук трябва да го направим toDictionary
+            int counter = 1;
+            foreach (KeyValuePair<string,int> kvp in participantsDict)
+            {
+                
+                string text = counter == 1 ? "st" : counter == 2 ? "nd" : "rd"; //това = на if проверките по=долу
+                //if (counter == 1)
+                //    text = "st";
+                //if (counter == 2)
+                //    text = "nd";
+                //if (counter == 3)
+                //    text = "rd";
+
+                Console.WriteLine($"{counter++ }{text} place: {kvp.Key}");
+                if (counter == 4)
+                {
+                    break;
+                }
+            }
+        }
+    }
+}
