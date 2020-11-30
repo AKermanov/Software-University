@@ -1,0 +1,61 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace ConsoleApp59
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+
+            List<string> attackedPlanets = new List<string>();
+            List<string> destroyedPlanets = new List<string>();
+
+            string pattern = @"(\@(?<name>[a-zA-Z]+))[^@!:>-]*(\:(?<population>\d+))[^-@!:>]*(\!(?<attack>[A,D])\!)[^-@!:>]*(\->(?<soldier>\d+))";
+            string key = @"[STARstar]";
+
+            for (int i = 0; i < n; i++)
+            {
+                string input = Console.ReadLine();
+                string result = string.Empty;
+                var keyNumber = Regex.Matches(input, key).Count;
+                for (int j = 0; j < input.Length; j++)
+                {
+                    result += (char)(input[j] - keyNumber);
+                }
+                Regex regex = new Regex(pattern);
+                if (regex.IsMatch(result))
+                {
+                    if (regex.Match(result).Groups["attack"].Value == "A")
+                    {
+                        attackedPlanets.Add(regex.Match(result).Groups["name"].Value);
+                    }
+                    else
+                    {
+                        destroyedPlanets.Add(regex.Match(result).Groups["name"].Value);
+                    }
+                }
+            }
+            Console.WriteLine($"Attacked planets: {attackedPlanets.Count}");
+            if (attackedPlanets.Count > 0)
+            {
+                foreach (var planet in attackedPlanets.OrderBy(x => x))
+                {
+                    Console.WriteLine($"-> {planet}");
+                }
+            }
+
+            Console.WriteLine($"Destroyed planets: {destroyedPlanets.Count}");
+            if (destroyedPlanets.Count > 0)
+            {
+                foreach (var planet in destroyedPlanets.OrderBy(x => x))
+                {
+                    Console.WriteLine($"-> {planet}");
+                }
+            }
+        }
+    }
+}
