@@ -1,0 +1,55 @@
+using System;
+using System.Linq;
+
+namespace SoftUniCS
+{
+    class Program
+    {
+        /*
+        static void Draw(int n)
+        {
+            if (n == 0) return;
+
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write('#');
+            }
+            Console.Write("\n");
+            Draw(n - 1);
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write('#');
+            }
+            Console.Write("\n");
+
+        }
+        */
+
+       static int SumArr(int[] arr, int i)
+        {
+            if (i == arr.Length -1)
+            {
+                return arr[i];
+            }
+            return arr[i] + SumArr(arr, i + 1);
+        }
+
+        static void Main()
+        {
+            string lineInput = Console.ReadLine();
+            string[] numStrs = lineInput.Split();
+            int[] nums = new int[numStrs.Length];
+            for (int i = 0; i < numStrs.Length; i++)
+            {
+                nums[i] = int.Parse(numStrs[i]);
+            }
+            
+            Console.WriteLine(SumArr(nums, 0));
+
+            //int[] myNums = Console.ReadLine().Split().Select(int.Parse).ToArray();
+
+
+            
+        }
+    }
+}
